@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+.menu li{
+    color:#fff;
+	display:block;
+	float:left;
+	display: list-item;
+	text-align:center;
+	width:85px;
+	line-height:24px;
+	background-image: url(kongz.png);
+	height: 30px;
+	vertical-align: middle;
+}
+.menu li a{ display:block;color:#000;}
+.menu_d{border-bottom:1px #FFFFFF solid;background-color:#FFFFFF; }
+.tabCopy ul li.aaa
+{
+	color:#999;
+	background-image: url(kongz.png);
+	width:85px;
+	height: 30px;
+	background-position: 0px -33px;
+}
+

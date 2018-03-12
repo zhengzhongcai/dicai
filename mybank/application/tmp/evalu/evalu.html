@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>成都银行</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/eva.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header">
+		<img src="img_config/evaluate_title1.png">
+	</div>
+	<div id="content">
+		<div style="widht:100%;height:10px;"></div>
+		<div id="staff">
+			<div class="left"><img id="portrait" src="" width="100%" height="100%"></div>
+			<div class="right">
+				<div class="item">
+					<span class="name">姓名：</span>
+					<span id="name" class="value" style="color:#e98b02"></span>
+				</div>
+				<div class="item">
+					<span class="name">部门：</span>
+					<span id="department" class="value"></span>
+				</div>
+				<div class="item">
+					<span class="name">窗口：</span>
+					<span class="value"><span id="win"></span>号窗口</span>
+				</div>
+				<div class="item">
+					<span class="name">星级：</span>
+					<span class="li_score"><span id="stars" style="width:100%;"></span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<!--
+		<a href="./choose.html"><img src="img/evaluate_foot_tips.png"></a>
+		-->
+		<a href="javascript:toChoose()"><img src="img/evaluate_foot_tips.png"></a>
+	</div>
+	<script src="lib/jquery-1.7.2.min.js"></script>
+	<script>
+		window.onload = function(){
+			var csysno = window.evaluator.getCsysno();
+			var cno = window.evaluator.getCno();
+			var serverUrl = window.evaluator.getDomain();
+			var url = serverUrl+"index.php?control=evaluator&action=getStaff"+'&C_sysno='+csysno+'&C_no='+cno;
+			$.ajax({
+				type: "post",
+				url: url,
+				dataType:'jsonp',
+				data:'',
+				jsonp:'callback',
+				success: function(data) {
+					var staffObj = data;
+					$('#name').html(staffObj.S_name);
+					$('#department').html('客服部');
+					$('#win').html(cno);
+					$('#stars').css('width', staffObj.S_star*20+'%');
+					$('#portrait').attr('src', staffObj.S_photoPath);
+				}
+			}); // ajax
+		}
+		
+		// 跳转到评价页面
+		function toChoose(){
+			window.evaluator.playEva();
+			location.href="./choose.html";
+		}
+	</script>
+</body>
+</html>

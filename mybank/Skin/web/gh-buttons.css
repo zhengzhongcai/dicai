@@ -1,0 +1,402 @@
+/* ------------------------------------------
+ * CSS3 GITHUB BUTTONS (Nicolas Gallagher)
+ * Licensed under Unlicense
+ * http://github.com/necolas/css3-github-buttons
+ * --------------------------------------- */
+
+
+/* =============================================================================
+   Base Button
+   ========================================================================== */
+
+.bx-btn {
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+    padding: 0.5em 1em;
+    border: 1px solid #d4d4d4;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0 #fff;
+    font:11px/normal sans-serif;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    background-color: #ececec;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+    background-image: -o-linear-gradient(#f4f4f4, #ececec);
+    background-image: linear-gradient(#f4f4f4, #ececec);
+    -moz-background-clip: padding; /* for Firefox 3.6 */
+    background-clip: padding-box;
+    border-radius: 0.2em;
+    /* IE hacks */
+    zoom: 1;
+    *display: inline;
+}
+
+.bx-btn:hover,
+.bx-btn:focus,
+.bx-btn:active,
+.bx-btn.active {
+    border-color: #3072b3;
+    border-bottom-color: #2a65a0;
+    text-decoration: none;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    color: #fff;
+    background-color: #3c8dde;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
+    background-image: -moz-linear-gradient(#599bdc, #3072b3);
+    background-image: -o-linear-gradient(#599bdc, #3072b3);
+    background-image: linear-gradient(#599bdc, #3072b3);
+}
+
+.bx-btn:active,
+.bx-btn.active {
+    border-color: #2a65a0;
+    border-bottom-color: #3884cd;
+    background-color: #3072b3;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc));
+    background-image: -moz-linear-gradient(#3072b3, #599bdc);
+    background-image: -ms-linear-gradient(#3072b3, #599bdc);
+    background-image: -o-linear-gradient(#3072b3, #599bdc);
+    background-image: linear-gradient(#3072b3, #599bdc);
+}
+
+/* overrides extra padding on button elements in Firefox */
+.bx-btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+
+/* =============================================================================
+   Button icons
+   ========================================================================== */
+
+.bx-btn.icon:before {
+    content: "";
+    position: relative;
+    top: 1px;
+    float:left;
+    width: 12px;
+    height: 12px;
+    margin: 0 0.75em 0 -0.25em;
+    background: url(gh-icons.png) 0 99px no-repeat;
+}
+
+.bx-btn.arrowup.icon:before { background-position: 0 0; }
+.bx-btn.arrowup.icon:hover:before,
+.bx-btn.arrowup.icon:focus:before,
+.bx-btn.arrowup.icon:active:before { background-position: -12px 0; }
+
+.bx-btn.arrowdown.icon:before { background-position: 0 -12px; }
+.bx-btn.arrowdown.icon:hover:before,
+.bx-btn.arrowdown.icon:focus:before,
+.bx-btn.arrowdown.icon:active:before { background-position: -12px -12px; }
+
+.bx-btn.arrowleft.icon:before { background-position: 0 -24px; }
+.bx-btn.arrowleft.icon:hover:before,
+.bx-btn.arrowleft.icon:focus:before,
+.bx-btn.arrowleft.icon:active:before { background-position: -12px -24px; }
+
+.bx-btn.arrowright.icon:before { float:right; margin: 0 -0.25em 0 0.5em; background-position: 0 -36px; }
+.bx-btn.arrowright.icon:hover:before,
+.bx-btn.arrowright.icon:focus:before,
+.bx-btn.arrowright.icon:active:before { background-position: -12px -36px; }
+
+.bx-btn.approve.icon:before { background-position: 0 -48px; }
+.bx-btn.approve.icon:hover:before,
+.bx-btn.approve.icon:focus:before,
+.bx-btn.approve.icon:active:before { background-position: -12px -48px; }
+
+.bx-btn.add.icon:before { background-position: 0 -288px; }
+.bx-btn.add.icon:hover:before,
+.bx-btn.add.icon:focus:before,
+.bx-btn.add.icon:active:before { background-position: -12px -288px; }
+
+.bx-btn.remove.icon:before { background-position: 0 -60px; }
+.bx-btn.remove.icon:hover:before,
+.bx-btn.remove.icon:focus:before,
+.bx-btn.remove.icon:active:before { background-position: -12px -60px; }
+
+.bx-btn.log.icon:before { background-position: 0 -72px; }
+.bx-btn.log.icon:hover:before,
+.bx-btn.log.icon:focus:before,
+.bx-btn.log.icon:active:before { background-position: -12px -72px; }
+
+.bx-btn.calendar.icon:before { background-position: 0 -84px; }
+.bx-btn.calendar.icon:hover:before,
+.bx-btn.calendar.icon:focus:before,
+.bx-btn.calendar.icon:active:before { background-position: -12px -84px; }
+
+.bx-btn.chat.icon:before { background-position: 0 -96px; }
+.bx-btn.chat.icon:hover:before,
+.bx-btn.chat.icon:focus:before,
+.bx-btn.chat.icon:active:before { background-position: -12px -96px; }
+
+.bx-btn.clock.icon:before { background-position: 0 -108px; }
+.bx-btn.clock.icon:hover:before,
+.bx-btn.clock.icon:focus:before,
+.bx-btn.clock.icon:active:before { background-position: -12px -108px; }
+
+.bx-btn.settings.icon:before { background-position: 0 -120px; }
+.bx-btn.settings.icon:hover:before,
+.bx-btn.settings.icon:focus:before,
+.bx-btn.settings.icon:active:before { background-position: -12px -120px; }
+
+.bx-btn.comment.icon:before { background-position: 0 -132px; }
+.bx-btn.comment.icon:hover:before,
+.bx-btn.comment.icon:focus:before,
+.bx-btn.comment.icon:active:before { background-position: -12px -132px; }
+
+.bx-btn.fork.icon:before { background-position: 0 -144px; }
+.bx-btn.fork.icon:hover:before,
+.bx-btn.fork.icon:focus:before,
+.bx-btn.fork.icon:active:before { background-position: -12px -144px; }
+
+.bx-btn.like.icon:before { background-position: 0 -156px; }
+.bx-btn.like.icon:hover:before,
+.bx-btn.like.icon:focus:before,
+.bx-btn.like.icon:active:before { background-position: -12px -156px; }
+
+.bx-btn.favorite.icon:before { background-position: 0 -348px; }
+.bx-btn.favorite.icon:hover:before,
+.bx-btn.favorite.icon:focus:before,
+.bx-btn.favorite.icon:active:before { background-position: -12px -348px; }
+
+.bx-btn.home.icon:before { background-position: 0 -168px; }
+.bx-btn.home.icon:hover:before,
+.bx-btn.home.icon:focus:before,
+.bx-btn.home.icon:active:before { background-position: -12px -168px; }
+
+.bx-btn.key.icon:before { background-position: 0 -180px; }
+.bx-btn.key.icon:hover:before,
+.bx-btn.key.icon:focus:before,
+.bx-btn.key.icon:active:before { background-position: -12px -180px; }
+
+.bx-btn.lock.icon:before { background-position: 0 -192px; }
+.bx-btn.lock.icon:hover:before,
+.bx-btn.lock.icon:focus:before,
+.bx-btn.lock.icon:active:before { background-position: -12px -192px; }
+
+.bx-btn.unlock.icon:before { background-position: 0 -204px; }
+.bx-btn.unlock.icon:hover:before,
+.bx-btn.unlock.icon:focus:before,
+.bx-btn.unlock.icon:active:before { background-position: -12px -204px; }
+
+.bx-btn.loop.icon:before { background-position: 0 -216px; }
+.bx-btn.loop.icon:hover:before,
+.bx-btn.loop.icon:focus:before,
+.bx-btn.loop.icon:active:before { background-position: -12px -216px; }
+
+.bx-btn.search.icon:before { background-position: 0 -228px; }
+.bx-btn.search.icon:hover:before,
+.bx-btn.search.icon:focus:before,
+.bx-btn.search.icon:active:before { background-position: -12px -228px; }
+
+.bx-btn.mail.icon:before { background-position: 0 -240px; }
+.bx-btn.mail.icon:hover:before,
+.bx-btn.mail.icon:focus:before,
+.bx-btn.mail.icon:active:before { background-position: -12px -240px; }
+
+.bx-btn.move.icon:before { background-position: 0 -252px; }
+.bx-btn.move.icon:hover:before,
+.bx-btn.move.icon:focus:before,
+.bx-btn.move.icon:active:before { background-position: -12px -252px; }
+
+.bx-btn.edit.icon:before { background-position: 0 -264px; }
+.bx-btn.edit.icon:hover:before,
+.bx-btn.edit.icon:focus:before,
+.bx-btn.edit.icon:active:before { background-position: -12px -264px; }
+
+.bx-btn.pin.icon:before { background-position: 0 -276px; }
+.bx-btn.pin.icon:hover:before,
+.bx-btn.pin.icon:focus:before,
+.bx-btn.pin.icon:active:before { background-position: -12px -276px; }
+
+.bx-btn.reload.icon:before { background-position: 0 -300px; }
+.bx-btn.reload.icon:hover:before,
+.bx-btn.reload.icon:focus:before,
+.bx-btn.reload.icon:active:before { background-position: -12px -300px; }
+
+.bx-btn.rss.icon:before { background-position: 0 -312px; }
+.bx-btn.rss.icon:hover:before,
+.bx-btn.rss.icon:focus:before,
+.bx-btn.rss.icon:active:before { background-position: -12px -312px; }
+
+.bx-btn.tag.icon:before { background-position: 0 -324px; }
+.bx-btn.tag.icon:hover:before,
+.bx-btn.tag.icon:focus:before,
+.bx-btn.tag.icon:active:before { background-position: -12px -324px; }
+
+.bx-btn.trash.icon:before { background-position: 0 -336px; }
+.bx-btn.trash.icon:hover:before,
+.bx-btn.trash.icon:focus:before,
+.bx-btn.trash.icon:active:before { background-position: -12px -336px; }
+
+.bx-btn.user.icon:before { background-position: 0 -360px; }
+.bx-btn.user.icon:hover:before,
+.bx-btn.user.icon:focus:before,
+.bx-btn.user.icon:active:before { background-position: -12px -360px; }
+
+
+/* =============================================================================
+   Button extensions
+   ========================================================================== */
+
+/* Primary button
+   ========================================================================== */
+
+.bx-btn.primary {
+    font-weight: bold;
+}
+
+/* Danger button
+   ========================================================================== */
+
+.bx-btn.danger {
+    color: #900;
+}
+
+.bx-btn.danger:hover,
+.bx-btn.danger:focus,
+.bx-btn.danger:active {
+    border-color: #b53f3a;
+    border-bottom-color: #a0302a;
+    color: #fff;
+    background-color: #dc5f59;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dc5f59), to(#b33630));
+    background-image: -moz-linear-gradient(#dc5f59, #b33630);
+    background-image: -ms-linear-gradient(#dc5f59, #b33630);
+    background-image: -o-linear-gradient(#dc5f59, #b33630);
+    background-image: linear-gradient(#dc5f59, #b33630);
+}
+
+.bx-btn.danger:active,
+.bx-btn.danger.active {
+    border-color: #a0302a;
+    border-bottom-color: #bf4843;
+    background-color: #b33630;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b33630), to(#dc5f59));
+    background-image: -moz-linear-gradient(#b33630, #dc5f59);
+    background-image: -ms-linear-gradient(#b33630, #dc5f59);
+    background-image: -o-linear-gradient(#b33630, #dc5f59);
+    background-image: linear-gradient(#b33630, #dc5f59);
+}
+
+/* Pill button
+   ========================================================================== */
+
+.bx-btn.pill {
+    border-radius: 50em;
+}
+
+/* Disabled button
+   ========================================================================== */
+
+.bx-btn.disable {
+    opacity: 0.5;
+}
+
+/* Big button
+   ========================================================================== */
+
+.bx-btn.big {
+    font-size: 14px;
+}
+
+.bx-btn.big.icon:before {
+    top: 0;
+}
+
+
+/* =============================================================================
+   Button groups
+   ========================================================================== */
+
+/* Standard group
+   ========================================================================== */
+
+.bx-btn-group {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* IE hacks */
+    zoom: 1;
+    *display: inline;
+}
+
+.bx-btn + .bx-btn,
+.bx-btn + .bx-btn-group,
+.bx-btn-group + .bx-btn,
+.bx-btn-group + .bx-btn-group {
+    margin-left: 15px;
+}
+
+.bx-btn-group li {
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+
+.bx-btn-group .bx-btn {
+    float: left;
+    margin-left: -1px;
+}
+
+.bx-btn-group > .bx-btn:not(:first-child):not(:last-child),
+.bx-btn-group li:not(:first-child):not(:last-child) .bx-btn {
+    border-radius: 0;
+}
+
+.bx-btn-group > .bx-btn:first-child,
+.bx-btn-group li:first-child .bx-btn {
+    margin-left: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.bx-btn-group > .bx-btn:last-child,
+.bx-btn-group li:last-child > .bx-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Minor group
+   ========================================================================== */
+
+.bx-btn-group.minor-group .bx-btn {
+    border: 1px solid #d4d4d4;
+    text-shadow: none;
+    background-image: none;
+    background-color: #fff;
+}
+
+.bx-btn-group.minor-group .bx-btn:hover,
+.bx-btn-group.minor-group .bx-btn:focus {
+    background-color: #599bdc;
+}
+
+.bx-btn-group.minor-group .bx-btn:active,
+.bx-btn-group.minor-group .bx-btn.active {
+    background-color: #3072b3;
+}
+
+.bx-btn-group.minor-group .bx-btn.icon:before {
+    opacity: 0.8;
+}
+
+/* =============================================================================
+   Button container (mixing buttons and groups, e.g., nav bar)
+   ========================================================================== */
+
+.bx-btn-container .bx-btn,
+.bx-btn-container .bx-btn-group {
+    vertical-align: top;
+}
+

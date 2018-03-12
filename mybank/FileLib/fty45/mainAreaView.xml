@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<playlist>
+  <trackList>
+    <track>
+      <creator>timg.gif</creator>
+      <title>Img</title>
+      <location>http://192.168.100.59:801/BANK/Material/timg.gif</location>
+      <duration>5000</duration>
+    </track>
+  </trackList>
+</playlist>

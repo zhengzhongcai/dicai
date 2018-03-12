@@ -1,0 +1,121 @@
+    <div style="overflow:hidden;"><!----mob_search ---->
+		<div class="mob_search">
+			<form action="<{$baseUrl}>/index.php?control=statistic&action=<{$action}>" method="post">
+				<input type="date" id="starttime" name="starttime" onchange="getStarttime()">
+				&nbsp;&nbsp;至&nbsp;&nbsp;
+				<input type="date" id="endtime" name="endtime" onchange="getEndtime()">
+
+				<button class="btn_orange" />查询</button>
+			</form>
+		</div>
+      <!----mob_search end----> 
+      <!----table title---->
+      <div class="table_title">
+        <h3><{$title}></h3>
+        <p>(<span id="textStarttime"></span> 至 <span id="textEndtime"></span>)</p>
+      </div>
+      <!----table title end----> 
+       <!----tool 工具条---->
+     <div class="mob_tool">
+     <div class="table_view">
+		 <ul>
+			<li class="li1"><a onclick="showTableData(this)" title="查看表格" class="on"><i class="view_table"></i></a></li>
+			<li><a onclick="showChart(this, 'line')" title="查看折线图"><i class="view_line_chart"></i></a></li>
+			<li><a onclick="showChart(this, 'bar')" title="查看柱状图"><i class="view_histogram"></i></a></li>
+			<li><a onclick="showChart(this, 'pie')" title="查看饼图"><i class="view_pie_chart"></i></a></li>
+		 </ul>
+	 </div>
+     <div class="tr">
+      <a href="#" class="tool_exl">导出Excel</a>
+      <a href="#" class="tool_print">打印</a></div>
+     </div>
+     
+         <!----tool 工具条 end---->
+          <!----table 表格---->
+    <div class="mod_table">
+		<div id="tab1">
+			<table id="tb_flow">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>机构代码</th>
+						<th>银行名称</th>
+						<th>已办理业务</th>
+						<th>储蓄业务</th>
+						<th>开销户业务</th>
+						<th>对公现金业务</th>
+						<th>对公非现金业务</th>
+					</tr>
+				</thead>
+				<tbody>
+					<{foreach item=row from=$flowArr}>
+					<tr>
+						<td><{$row.id}></td>
+						<td><{$row.org_no}></td>
+						<td><{$row.bank}></td>
+						<td><{$row.finished}></td>
+						<td><{$row.store}></td>
+						<td><{$row.account}></td>
+						<td><{$row.cash}></td>
+						<td><{$row.not_cash}></td>
+					</tr>
+					<{/foreach}>
+				</tbody>
+			</table>
+			<!----table 表格 end----> 
+		</div>
+		<div id="tab2" style="padding:20px;display:none">
+		</div>
+    </div>
+    
+         
+    </div>
+  </div>
+  </div>
+  <!----right end----> 
+  
+</div>
+<!--content end-->
+<script>
+	$(document).ready(function(){
+		// 设置表排序特效
+		$('#tb_flow').dataTable({
+			"bPaginate": false,
+			"bFilter": false
+		});
+	});
+	
+	function getStarttime(){
+		var starttime = $('#starttime').val();
+		var tmpArr  = starttime.split('-');
+		$('#textStarttime').html(tmpArr[0]+"-"+tmpArr[1]+"-"+tmpArr[2]);
+	}// func
+	
+	function getEndtime(){
+		var starttime = $('#endtime').val();
+		var tmpArr  = starttime.split('-');
+		$('#textEndtime').html(tmpArr[0]+"-"+tmpArr[1]+"-"+tmpArr[2]);
+	}// func
+	
+	// 显示报表
+	function showTableData(elem) {
+		$('#tab1').css('display', 'block');
+		$('#tab2').css('display', 'none');
+		$(elem).parent().parent().find('a').each(function(){
+			$(this).removeClass('on');
+		});
+		$(elem).addClass('on');
+	}//
+	
+	// 显示图表
+	function showChart(elem, type){
+		$('div[class^="visualize"]').remove();
+		$('#tab1').css('display', 'none');
+		$('#tab2').css('display', 'block');
+		$(elem).parent().parent().find('a').each(function(){
+			$(this).removeClass('on');
+		});
+		$(elem).addClass('on');
+		chartActive(type);
+	}// func
+</script>

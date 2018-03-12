@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>成都银行</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="../css/style.css" rel="stylesheet">
+	<link href="../css/scrollbar.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header"></div>
+	<div id="content">
+		<div style="height:15px"></div>
+		<div id="intros">
+			<div class="intro_head_bg"></div>
+			<div class="title">业务推荐</div>
+			<div id="list" class="list" style="position:absolute;">
+				<div style="position:absolute;width:100%;">
+					<ul></ul>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div id="footer">
+		<!--
+		<a href="./evalu.html"><div class="evabtn"></div></a>
+		-->
+		<div class="homebtn" onclick="location.href='./../index.html'"></div>
+		<div class="backbtn" onclick="history.go(-1)"></div>
+	</div>
+	<script src="../lib/jquery-1.7.2.min.js"></script>
+	<script src="../lib/iscroll.js"></script>
+	<script>		
+		// 生成新闻条目
+		function generateItem(item){
+			var liStr = '<li>'+
+							'<a href="./detail_'+item.id+'.html">'+
+								'<div class="list_item">'+
+									'<img src="../img/icon_li.png" height="10px"/>'+
+									'<span>'+item.item_name+'</span>'+
+								'</div>'+
+							'</a>'+
+						'</li>';
+			return liStr;
+		}// func
+		window.onload = function(){
+			var data = decodeURIComponent('%5B%5D');
+			var items = JSON.parse(data);
+			for (var idx in items) $('div.list > div > ul').append(generateItem(items[idx]));
+			var mainScroll = new iScroll('list', { scrollbarClass: 'myScrollbar' });
+		}
+	</script>
+</body>
+</html>

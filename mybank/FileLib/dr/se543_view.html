@@ -1,0 +1,349 @@
+<html> 
+<head> 
+<meta http-equiv="Content-Language" content="zh-cn"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script language="javascript" src="../../JavascriptClass/bx.core.js"></script>
+<title>se543</title> 
+<script language="javascript">
+
+var bgAudioAreaPlayer={
+	iframeInfo:{},
+	playHandel:{},
+	playState:"",
+	play:function(){
+		var d=new Date();
+			d=d.getTime()*1;
+		var ifs=bgAudioAreaPlayer.iframeInfo;
+		for(var i in ifs){
+			var arg=[],
+			itms=ifs[i][0];
+				for(var k in itms){
+				if(k!="src"&&k!="intermittent"){
+					 arg.push(k+"_|_"+itms[k]);
+					}
+				}
+			
+			arg=arg.join("_+_");
+			document.getElementById(i).src=itms.src+"?arg="+arg;
+			bgAudioAreaPlayer.playHandel[i]={src:itms.mp3,time:d};
+			break;
+		}
+		bgAudioAreaPlayer.playState=window.setInterval(function(){
+			bgAudioAreaPlayer.changePlayIframe();
+		},1000);
+	},
+	changePlayIframe:function(){
+		var d=new Date();
+			d=d.getTime()*1;
+		var hand=bgAudioAreaPlayer.playHandel;
+		var ifs=bgAudioAreaPlayer.iframeInfo;
+		for(var i in hand){
+			var srcItms=ifs[i];
+			for(var a=0,b=srcItms.length; a<b; a++){
+				if(srcItms[a].mp3==hand[i].src){
+					if(d-hand[i].time>=srcItms[a].intermittent*1000){
+						if(a==b-1){
+							a=-1;
+						}
+						var arg=[],
+							itms=srcItms[a+1];
+								for(var k in itms){
+								if(k!="src"&&k!="intermittent"){
+									 arg.push(k+"_|_"+itms[k]);
+									}
+								}
+							
+							arg=arg.join("_+_");
+						
+						document.getElementById(i).src=itms.src+"?arg="+arg;
+						bgAudioAreaPlayer.playHandel[i]={src:itms.mp3,time:d};
+					}
+				}
+			}
+		}
+	},
+	add:function(iframeId,arg){
+		//arg={src:"audioPlayer.html",mp3:"bgmusic/1.mp3",loop:"loop=1",autoplay:"1",volume:"100",intermittent:7}
+		if(!bgAudioAreaPlayer.iframeInfo.hasOwnProperty(iframeId)){
+			bgAudioAreaPlayer.iframeInfo[iframeId]=[];
+			}
+		bgAudioAreaPlayer.iframeInfo[iframeId].push(arg);
+	}
+};
+
+var webAreaPlayer={
+	iframeInfo:{},
+	playHandel:{},
+	playState:"",
+	play:function(){
+		var d=new Date();
+			d=d.getTime()*1;
+		var ifs=webAreaPlayer.iframeInfo;
+		for(var i in ifs){
+			document.getElementById(i).src=ifs[i][0].src;
+			webAreaPlayer.playHandel[i]={src:ifs[i][0].src,time:d};
+		}
+		webAreaPlayer.playState=window.setInterval(function(){
+			webAreaPlayer.changePlayIframe();
+		},1000);
+	},
+	changePlayIframe:function(){
+		var d=new Date();
+			d=d.getTime()*1;
+		var hand=webAreaPlayer.playHandel;
+		var ifs=webAreaPlayer.iframeInfo;
+		for(var i in hand){
+			var srcItms=ifs[i];
+			for(var a=0,b=srcItms.length; a<b; a++){
+				if(srcItms[a].src==hand[i].src){
+					if(d-hand[i].time>=srcItms[a].intermittent*1000){
+						if(a==b-1){
+							a=-1;
+						}
+						document.getElementById(i).src=srcItms[a+1].src;
+						webAreaPlayer.playHandel[i]={src:srcItms[a+1].src,time:d};
+					}
+				}
+			}
+		}
+	},
+	addSrc:function(iframeId,arg){
+		//arg={src:"audioPlayer.html",intermittent:7}
+		if(!webAreaPlayer.iframeInfo.hasOwnProperty(iframeId)){
+			webAreaPlayer.iframeInfo[iframeId]=[];
+			}
+		webAreaPlayer.iframeInfo[iframeId].push(arg);
+	}
+};
+//更改图片的function
+function changeImg(objID,filesArr){
+	var obj=document.getElementById(objID);
+	curIndex=parseInt(obj.getAttribute("curIndex"));
+	if (curIndex==filesArr.length-1){ 
+		curIndex=0; 
+		obj.setAttribute("curIndex",curIndex);
+	}else{
+		curIndex+=1;
+		obj.setAttribute("curIndex",curIndex);
+	}
+	obj.src=filesArr[curIndex];
+} 
+//更改flash的function
+ function PlayFlash(arrFiles,arrTime) 
+{ 
+   this.count = arrFiles.length; 
+   this.arrFiles = arrFiles; 
+   this.arrTime = arrTime;  
+ } 
+ 
+ PlayFlash.prototype.strat=0; 
+ PlayFlash.prototype.$=function (obj){return document.getElementById(obj);} 
+ PlayFlash.prototype.nowTime = 0; 
+ PlayFlash.prototype.subIndex = 0; 
+ PlayFlash.prototype.Iframe=null;  
+ PlayFlash.prototype.createIframe=function(objID){this.Iframe=this.$(objID);}; 
+ PlayFlash.prototype.iframeInfo=function(ifr) 
+  { 
+     this.Iframe.style.width=ifr.w+"px";  
+     this.Iframe.style.height=ifr.h+"px";   
+  } 
+
+ PlayFlash.prototype.f_w=0;  
+ PlayFlash.prototype.f_h=0;  
+ PlayFlash.prototype.createFlashInfo=function(f){this.f_w=f.w;this.f_h=f.h;};   
+ PlayFlash.prototype.changFlash=function()  
+ { 
+    this.strat = 1;  
+    this.Iframe.src="fplayer.html?flash="+this.arrFiles[this.subIndex]+"&w="+this.f_w+"&h="+this.f_h; 
+  };  
+ PlayFlash.prototype.itemTimer = function() 
+ { 
+   if(this.subIndex==this.count) 
+   { 
+ 	  this.nowTime=0;  
+ 	  this.subIndex=0; 
+ 	  return this.arrTime[0]; 
+   } 
+   else 
+   {  
+ 	  return this.arrTime[this.subIndex];    } 
+ } 
+  PlayFlash.prototype.runItem = function() 
+ {  
+    this.strat == 0 ? this.changFlash():null;  
+   var a=this.subIndex;   
+   if(this.nowTime==this.itemTimer()) 
+    {  
+       this.nowTime=0; 
+        this.subIndex=this.subIndex+1;  
+    } 
+    else  
+    {     
+        this.nowTime = this.nowTime+1;  
+   }  
+    if(a!=this.subIndex){this.changFlash();}   
+}
+
+</script>
+</head> 
+<body style=" margin:0px; padding:0px; width:1024px; height:768px;  overflow:hidden; background-color:#000" >
+<!--将内容填到html中去-->
+<div title="viewArea" style="position: absolute; left: 0px; top:0px; width: 618.79754601227px; height: 292.1226993865031px; z-index: 1; word-break:break-all; overflow: hidden" id="layer0" ><object data="http://192.168.100.59:801/BANK/swf/52-mediaplayercs3.swf?playmedia=http://192.168.100.59:801/BANK/FileLib/se543/mainAreaView.xml&autoplay=true&dockcontrols=false&panelcolor=000000"
+type="application/x-shockwave-flash" width="618.79754601227" height="292.1226993865031" >
+<param name="movie" value="http://192.168.100.59:801/BANK/swf/52-mediaplayercs3.swf?playmedia=http://192.168.100.59:801/BANK/FileLib/se543/mainAreaView.xml&autoplay=true&dockcontrols=false&panelcolor=000000" />
+<param name="allowFullScreen" value="true"/>
+<embed src="http://192.168.100.59:801/BANK/swf/52-mediaplayercs3.swf?playmedia=http://192.168.100.59:801/BANK/FileLib/se543/mainAreaView.xml&autoplay=true&dockcontrols=false&panelcolor=000000" width="618.79754601227" height="292.1226993865031" autostart="true" ></embed> 
+</object></div>
+<div title="viewArea" style="position: absolute; left: 48.68711656441718px; top:202.60122699386503px; width: 849.6687116564417px; height: 376.9325153374233px; z-index: 1; word-break:break-all; overflow: hidden" id="layer1" ><img id=obj1 curIndex="0" border="0" src="001-3.png" width=849.6687116564417 height=376.9325153374233></div>
+<div title="viewArea" style="position: absolute; left: 0px; top:642.3558282208589px; width: 1024px; height: 125.6441717791411px; z-index: 1; word-break:break-all; overflow: hidden" id="layer2" ><marquee scrollamount = "3" direction="left" style=" height:125.6441717791411px; line-height:125.6441717791411px;background-color:#ffffff; font-size:123px;font-family:'宋体';  color:#000000;">12345678</marquee></div>
+
+
+</body>
+<script>
+function getAllArea()
+{
+	
+	var areas=getChildNodes(document.body,"div","title=viewArea");
+	var d="",v="",w="",h="",t="",l="",font_size="",line_height="";
+	var l=getBL();
+	//alert(l);
+	for(var i=0,n=areas.length; i<n; i++)
+	{
+		v=areas[i];
+		
+			v.style.top=(v.style.top.substring(0,v.style.top.length-2)*l)+"px";
+			v.style.left=(v.style.left.substring(0,v.style.left.length-2)*l)+"px";
+			v.style.width=(v.style.width.substring(0,v.style.width.length-2)*l)+"px";
+			v.style.height=(v.style.height.substring(0,v.style.height.length-2)*l)+"px";
+		
+		d=getFirstChild(areas[i]);
+		//修正当区域为空的时候,跳过
+		if(!d){continue;}
+		//过滤滚动字幕
+		if(d.tagName=="MARQUEE")
+		{
+			
+			d.style.width=v.style.width;
+			//h=d.style.height;
+			d.style.height=v.style.height;
+			font_size=d.style.fontSize;
+			d.style.fontSize=(font_size.substring(0,font_size.length-2)*l)+"px";
+			//alert(font_size+"\n"+(font_size.substring(0,font_size.length-2)*l));
+			line_height=d.style.lineHeight;
+			d.style.lineHeight=(line_height.substring(0,line_height.length-2)*l)+"px";
+			
+			var dom_parent = parentNode(d);
+			var dom_new_marquee=dom_parent.removeChild(d);
+			window.setTimeout(function(){dom_parent.appendChild(dom_new_marquee);},500);
+		}
+		else if(d.tagName=="OBJECT")
+		{
+			d.width=d.width*l;
+			d.height=d.height*l;
+		}
+		else
+		{
+			d_w=d.style.width;
+			d_w==""?d_w=d.width+"px":null;  //----> 可能不存在 style属性
+			d.style.width=(d_w.substring(0,d_w.length-2)*l)+"px";
+			d_h=d.style.height;
+			d_h==""?d_h=d.height+"px":null;
+			d.style.height=(d_h.substring(0,d_h.length-2)*l)+"px";
+		}
+	}
+	var p=bodyWidthHeight();
+	document.body.style.width=p.w*l+"px";
+	document.body.style.height=p.h*l+"px";
+	document.body.style.backgroundColor="#000";
+	
+	//背景
+	if(_("tempBG"))
+	{
+		_("tempBG").style.width=p.w*l+"px";
+		_("tempBG").style.height=p.h*l+"px";
+	}
+	
+}
+
+//-----------------------------
+//	获取screen的宽高
+//-----------------------------
+function getBodyState()
+{
+	var sw=width(document.body);
+	var sh=height(document.body);
+	return {w:sw,h:sh};
+} 
+
+//获取宽高比例的参考对象
+//当宽大于高时候 表示是横向显示,反之则纵向显示
+function bodyWidthHeight()
+{
+	var wh=document.body.style.width;
+	wh=wh.substring(0,wh.length-2);
+	var ht=document.body.style.height;
+	ht=ht.substring(0,ht.length-2);
+	return {w:wh,h:ht};
+}
+
+//计算出比例
+function getBL()
+{
+	var l=1; //缩放比例
+	var b=getBodyState(); //body 可见区域的宽高
+	var p=bodyWidthHeight(); //profile的宽高
+	//先判断是否为横向显示
+	if(p.w>=p.h) // w>h 横向显示
+	{
+		if(p.w>=b.w) //profile的宽度大于 当前浏览器页面的可见高度
+		{
+			l=b.w/p.w;
+			//如果把profile的高度等比例缩放之后,还大于页面可见的高度是会怎么样?
+			if(p.h*l>b.h)
+			{
+				//是不是 使用 profile的高度与页面的可见高度,重新计算比例?
+				//计算后的新比例,会满足宽度的缩放要求么?
+				//貌似可以额! \(^o^)/~
+				l=b.h/p.h; 
+			}
+		}
+	}
+	//先判断是否为纵向显示
+	if(p.w<p.h) // h>w 纵向显示
+	{
+		if(p.h>b.h) //profile的宽度大于 当前浏览器页面的可见高度
+		{
+			l=b.h/p.h;
+			//如果把profile的高度等比例缩放之后,还大于页面可见的高度是会怎么样?
+			if(p.w*l>b.w)
+			{
+				//是不是 使用 profile的高度与页面的可见高度,重新计算比例?
+				//计算后的新比例,会满足宽度的缩放要求么?
+				//貌似可以额! \(^o^)/~
+				l=b.w/p.w; 
+			}
+		}
+	}
+	return l;
+}
+getAllArea();
+
+
+	function ProgramPlayerStart(){
+		var a=0;
+		for(var i in bgAudioAreaPlayer.iframeInfo){
+			a++;
+		}
+		if(a){bgAudioAreaPlayer.play();}
+		
+		var a=0;
+		for(var i in webAreaPlayer.iframeInfo){
+			a++;
+		}
+		if(a){webAreaPlayer.play();}
+		
+	}
+	ProgramPlayerStart();
+</script>
+
+</html>

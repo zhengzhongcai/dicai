@@ -1,0 +1,464 @@
+	<!----right---->
+	<script src="assets/js/jquery.collapse.js"></script>
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+	<link rel="stylesheet" href="assets/css/jquery-ui.css" />
+	<link href="assets/colorpicker/css/evol.colorpicker.min.css" rel="stylesheet" /> 
+	<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+	<script src="assets/js/jquery-ui.js"></script>
+	<script src="assets/colorpicker/js/evol.colorpicker.min.js" type="text/javascript"></script>
+	<script>
+		$(function() {
+			$( ".item" ).draggable({helper:"clone" });
+		});
+	</script>
+	<div class="right_box">
+		<div id="srclist" data-collapse="accordion">
+			<h3><{$COMMON_RES_VIDEO|default:"视频"}></h3>
+			<div id="videoList">
+				<{foreach item=video from=$rVideos}>
+				<div style="cursor:pointer" class="item" id="<{$video.id}>" onclick="showRes('<{$video.name}>', '<{$baseUrl}>/index.php?control=resource&action=checkRes&resid=<{$video.id}>')" ><{$video.name}></div>
+				<{/foreach}>
+			</div>
+			<h3><{$COMMON_RES_AUDIO|default:"音频"}></h3>
+			<div id="audioList">
+				<{foreach item=audio from=$rAudios}>
+				<div style="cursor:pointer" class="item" id="<{$audio.id}>" onclick="showRes('<{$audio.name}>', '<{$baseUrl}>/index.php?control=resource&action=checkRes&resid=<{$audio.id}>')"><{$audio.name}></div>
+				<{/foreach}>
+			</div>
+			<h3><{$COMMON_RES_PIC|default:"图片"}></h3>
+			<div id="picList">
+				<{foreach item=pic from=$rPics}>
+				<div style="cursor:pointer" class="item" id="<{$pic.id}>" onclick="showRes('<{$pic.name}>', '<{$baseUrl}>/index.php?control=resource&action=checkRes&resid=<{$pic.id}>')"><{$pic.name}></div>
+				<{/foreach}>
+			</div>
+			<h3><{$COMMON_RES_TEXT|default:"文本"}></h3>
+			<div id="textList">
+				<{foreach item=text from=$rTexts}>
+				<div style="cursor:pointer" class="item" id="<{$text.id}>" onclick="showRes('<{$text.name}>', '<{$baseUrl}>/index.php?control=resource&action=checkRes&resid=<{$text.id}>')"><{$text.name}></div>
+				<{/foreach}>
+			</div>
+		</div>
+		<div id="editarea">
+			<div style="margin-left:50px;">
+				<span><{$RES_RIGHTER_TPL_NAME|default:"模板名称"}>：</span>
+				<input type="text" name="tpl_name">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><{$RES_RIGHTER_VERSION|default:"版本号"}>：</span>
+				<input type="text" name="version">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><{$RES_RIGHTER_TPL_RESOLU|default:"分辨率"}>：</span>
+				<select name="resolution" onchange="changeCanvas()">
+					<option value="800*480">800*480</option>
+				</select>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button id="addArea"><{$RES_RIGHTER_EDIT_TPL_ADD_AREA|default:"添加区块"}></button>
+				<{if '' == $tplid}>
+				<button onclick="storeTpl()"><{$RES_RIGHTER_EDIT_TPL_FINISH|default:"完成"}></button>
+				<{else}>
+				<button onclick="updateTpl(<{$tplid}>)"><{$RES_RIGHTER_EDIT_TPL_CHANGE|default:"修改"}></button>
+				<{/if}>
+				<!--
+				<button onclick="previewTpl()"><{$RES_RIGHTER_EDIT_TPL_PREVIEW|default:"预览"}></button>
+				-->
+			</div>
+			<div style="margin-left:50px;">
+				<input id="cpBoth" name="tpl_bg" value="#31859b" style="width:60px"/>
+			</div>
+			<div class="splitarea">
+			</div>
+		</div>
+	</div>
+	<script>
+		// 设置编辑区域宽高值
+		var editAreaWidth;
+		var editAreaHeight;
+	
+		// Generate four random hex digits.
+		function S4() {
+		   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+		};
+
+		// Generate a pseudo-GUID by concatenating random hexadecimal.
+		function guid() {
+		   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+		};
+		// 区域
+		var Area = function(id){
+			this.id = id;
+			//this.resid = null;
+			//this.resname = '<{$RES_RIGHTER_EDIT_TPL_TIP1|default:"未添加资源"}>';
+			// 宽
+			this.width = 100;
+			this.widthPer = 0;
+			// 高
+			this.height = 100;
+			this.heightPer = 0;
+			
+			this.top = 0;
+			this.topPer = 0;
+			this.left = 0;
+			this.leftPer = 0;
+			this.resArr = new Array();
+		}
+		
+		Area.prototype.addRes = function(res){
+			this.resArr.push(res);
+		}
+		
+		Area.prototype.setId = function(id){this.id = id;}
+		Area.prototype.getId = function(){return this.id;}
+		
+		// 设置资源数组
+		Area.prototype.setResArr = function(resArr){this.resArr = resArr;}
+		Area.prototype.getResArr = function(){return this.resArr;}
+		Area.prototype.removeRes = function(resid){
+			for(var i=0,n=0;i<this.resArr.length;i++) { 
+				if(this.resArr[i].resid == resid) { 
+					this.resArr.splice(i,1);
+					break;
+				}// if
+			}// for
+			//this.length -= 1;
+		}
+		// 设置资源id
+		//Area.prototype.setResid = function(resid){this.resid = resid;}
+		//Area.prototype.getResid = function(){return this.resid;}
+		// 设置资源名称
+		//Area.prototype.setResname = function(resname){this.resname = resname;}
+		//Area.prototype.getResname = function(){return this.resname;}
+		// 设置区域宽度
+		Area.prototype.setWidth = function(width){
+			this.width = width;
+			this.widthPer = width/editAreaWidth*100;
+		}
+		Area.prototype.getWidth = function(){return this.width;}
+		// 设置区域高度
+		Area.prototype.setHeight = function(height){
+			this.height = height
+			this.heightPer = height/editAreaHeight*100;
+		}
+		Area.prototype.getHeight = function(){return this.height;}
+		// 设置相对父元素top
+		Area.prototype.setTop = function(top){
+			this.top = top;
+			this.topPer = top/editAreaHeight*100;
+		}
+		Area.prototype.getTop = function(){return this.top;}
+		// 设置相对父元素left
+		Area.prototype.setLeft = function(left){
+			this.left = left;
+			this.leftPer = left/editAreaWidth*100;
+		}
+		Area.prototype.getLeft = function(){return this.left;}
+		// 渲染区域
+		Area.prototype.render = function(){
+			var newDiv = $('<div></div>');
+			newDiv.addClass('nodeCanvas').append('<button type="button" class="close" onclick="deleteCanvas(this)">&times;</button>').append('<ul class="link-title"></ul>');
+			newDiv.css('width', this.width);
+			newDiv.css('height', this.height);
+			newDiv.css('position', 'absolute');
+			newDiv.attr('id', this.id);
+			
+			var areaid = this.id;
+			
+			for (var idx in this.resArr){
+				var resid = this.resArr[idx].resid;
+				var item = this.resArr[idx];
+				var newLi = $('<li resid="'+resid+'"></li>');
+				var newA = $('<a href="javascript:void(0)" style="color:red">×</a>');
+				$(newA).click(function(){
+					// 删除资源
+					var destRes = $(this).parent().attr('resid');
+					areas.getArea(areaid).removeRes(destRes);
+					$(this).parent().remove();
+				});
+				var newSpan = $('<span style="cursor:pointer" onclick="showRes(\''+item.resname+'\',\'<{$baseUrl}>/index.php?control=resource&action=checkRes&resid='+item.resid+'\')">'+item.resname+'</span>');
+				$(newLi).append(newA);
+				$(newLi).append(newSpan);
+				$(newDiv).find("ul[class='link-title']").append(newLi);
+			}
+			return newDiv;
+		}
+		
+		// 区域列表
+		var AreaList = function(){
+			this.areas = new Array();
+		}
+		
+		// 添加区域
+		AreaList.prototype.addArea = function(area){
+			this.areas.push(area);
+		}
+		
+		// 获取区域
+		AreaList.prototype.getArea = function(id){
+			for(var i=0,n=0;i<this.areas.length;i++) { 
+				if(this.areas[i].getId() == id) { 
+					return this.areas[i];
+				}// if
+			}// for
+		}
+		
+		// 删除区域
+		AreaList.prototype.removeArea = function(id){
+			for(var i=0,n=0;i<this.areas.length;i++) { 
+				if(this.areas[i].getId() == id) { 
+					this.areas.splice(i,1);
+					break;
+				}// if
+			}// for
+			this.length -= 1;
+		}
+		
+		// 获取区域数组
+		AreaList.prototype.getAreas = function(){
+			return this.areas;
+		}
+		// --------------------------------------------
+		// 初始化模板数组
+		var areas = new AreaList();
+		
+		window.onload = function(){
+			//.on('change.color', function(evt, color){
+			//	$('.splitarea').css('background', color);
+			//})
+			changeCanvas()
+			// 获取模板信息并渲染布局
+			<{if '' != $tplid}>
+			var url = "<{$baseUrl}>/index.php?control=resource&action=getTplInfo";
+			$.ajax({
+				type: "post",
+				url: url,
+				data: 'tplid='+<{$tplid}>,
+				success: function(data) {
+					//console.log(JSON.parse(data));
+					renderTpl(JSON.parse(data));
+				}
+			}); // ajax
+			<{/if}>
+			
+			$('#cpBoth').colorpicker();
+		}
+		
+		// 根据模板id获取模板信息
+		function renderTpl(tpl){
+			// 设置模板名称
+			$('input[name="tpl_name"]').val(tpl.tpl_name);
+			// 设置模板版本
+			$('input[name="version"]').val(tpl.version);
+			// 设置分辨率
+			$('select[name="resolution"]').val(tpl.resolution);
+			// 设置背景色
+			$('input[name="tpl_bg"]').val(tpl.tpl_bg);
+			// 渲染模板布局
+			var items = JSON.parse(tpl.areas);
+			$('#cpBoth').colorpicker();
+			
+			for (var idx in items){
+				var area = new Area(items[idx].id);
+				//area.setResid(items[idx].resid);
+				//area.setResname(items[idx].resname);
+				area.setTop(items[idx].top);
+				area.setLeft(items[idx].left);
+				area.setWidth(items[idx].width);
+				area.setHeight(items[idx].height);
+				area.setResArr(items[idx].resArr);
+				
+				areas.addArea(area);
+				
+				var newDiv = area.render();
+				$('.splitarea').append(newDiv);
+				$('#'+area.getId()).animate({left:area.getLeft(), top:area.getTop()});
+				activeArea(newDiv);
+			}// for
+		}// func
+		
+		// 每次添加区域，则推送到区域列表
+		// 关联资源和区域
+		function changeCanvas(){
+			var reso = $('select[name="resolution"]').val();
+			var wh = reso.split('*');
+			$('.splitarea').css('width', wh[0]+'px');
+			$('.splitarea').css('height', wh[1]+'px');
+			editAreaWidth = wh[0];
+			editAreaHeight = wh[1];
+		}// func
+		
+		$('#addArea').bind('click', function(){
+			var id = guid();
+			// 添加资源区域
+			var area = new Area(id);
+			var newDiv = area.render();
+			$('.splitarea').append(newDiv);
+			areas.addArea(area);
+			activeArea(newDiv);
+		});
+		
+		// 激活区块可以调整特效
+		function activeArea(newDiv){
+			// 设置最大可用范围
+			var reso = $('select[name="resolution"]').val();
+			var wh = reso.split('*');
+			newDiv.draggable({ 
+				containment: "parent", 
+				cursor: "move",
+				stop: function( event, ui ) {
+					areas.getArea(this.id).setTop(ui.position.top);
+					areas.getArea(this.id).setLeft(ui.position.left);
+				}
+			}).resizable({
+				minWidth:50,
+				maxWidth:wh[0],
+				minHeight: 50,
+				maxHeight: wh[1],
+				stop: function(event, ui) {
+					areas.getArea(ui.element.attr('id')).setWidth(ui.element.width());
+					areas.getArea(ui.element.attr('id')).setHeight(ui.element.height());
+				}
+			}).droppable({
+				drop: function( event, ui ) {
+					if (0 == ui.draggable.attr('class').indexOf('nodeCanvas')) return;
+					var areaid = this.id;
+					var resid = ui.draggable.attr('id');
+					var resname = ui.draggable.html();
+					
+					var newLi = $('<li resid="'+resid+'"></li>');
+					var newA = $('<a href="javascript:void(0)" style="color:red">×</a>');
+					$(newA).click(function(){
+						// 删除资源
+						var destRes = $(this).parent().attr('resid');
+						areas.getArea(areaid).removeRes(destRes);
+						$(this).parent().remove();
+					});
+					var newSpan = $('<span>'+ui.draggable.html()+'</span>');
+					$(newLi).append(newA);
+					$(newLi).append(newSpan);
+					$(this).find("ul[class='link-title']").append(newLi);
+					// 修改区域对应资源
+					var res = {'resid':resid, 'resname':resname}
+					areas.getArea(this.id).addRes(res);
+					//areas.getArea(this.id).setResid(ui.draggable.attr('id'));
+					//areas.getArea(this.id).setResname(ui.draggable.html());
+				}
+			});
+		}// func
+		
+		// 保存模板
+		function storeTpl(){
+			// 确认所有区域都添加了资源
+			var items = areas.getAreas();
+			if (0 == items.length){
+				alert('<{$RES_RIGHTER_EDIT_TPL_TIP2|default:"请添加区块."}>');
+				return;
+			}
+			for (var idx in items){
+				if (items[idx].resArr.length == 0){
+					alert('<{$RES_RIGHTER_EDIT_TPL_TIP3|default:"存在未添加资源的区块."}>');
+					return;
+				}// if
+			}// for
+			
+			// 检查模板名称
+			var tpl_name = $('input[name="tpl_name"]').val();
+			var version = $('input[name="version"]').val();
+			var resolution = $('select[name="resolution"]').val();
+			
+			var tpl_bg = $('#cpBoth').val();
+			
+			if ('' == tpl_name){
+				alert('<{$RES_RIGHTER_EDIT_TPL_TIP4|default:"请输入模板名称."}>');
+				return;
+			}// if
+			
+			//console.dir(items);return;
+			
+			// 异步添加模板
+			var url = "<{$baseUrl}>/index.php?control=resource&action=storeTpl";
+			$.ajax({
+				type: "post",
+				url: url,
+				data: 'tpl_name='+tpl_name+'&tpl_bg='+tpl_bg+'&areas='+encodeURIComponent(JSON.stringify(items))+'&resolution='+resolution+'&version='+version,
+				success: function(data) {
+					if (data > 0) alert('<{$COMMON_TIP_SAVE_SUCCESS|default:"添加成功."}>');
+					else alert('<{$COMMON_TIP_SAVE_FAILED|default:"添加失败."}>');
+				}
+			}); // ajax
+		}// func
+		
+		// 修改模板
+		function updateTpl(tplid){
+			// 确认所有区域都添加了资源
+			var items = areas.getAreas();
+			if (0 == items.length){
+				alert('<{$RES_RIGHTER_EDIT_TPL_TIP2|default:"请添加区块."}>');
+				return;
+			}
+			for (var idx in items){
+				if (items[idx].resArr.length == 0){
+					alert('<{$RES_RIGHTER_EDIT_TPL_TIP3|default:"存在未添加资源的区块."}>');
+					return;
+				}// if
+			}// for
+			
+			// 检查模板名称
+			var tpl_name = $('input[name="tpl_name"]').val();
+			var version = $('input[name="version"]').val();
+			var resolution = $('select[name="resolution"]').val();
+			
+			var tpl_bg = $('#cpBoth').val();
+			
+			if ('' == tpl_name){
+				alert('<{$RES_RIGHTER_EDIT_TPL_TIP4|default:"请输入模板名称."}>');
+				return;
+			}// if
+			
+			// 异步修改模板
+			var url = "<{$baseUrl}>/index.php?control=resource&action=updateTpl";
+			$.ajax({
+				type: "post",
+				url: url,
+				data: 'tplid='+tplid+'&tpl_name='+tpl_name+'&tpl_bg='+tpl_bg+'&areas='+encodeURIComponent(JSON.stringify(items))+'&resolution='+resolution+'&version='+version,
+				success: function(data) {
+					if (data > 0) alert('<{$COMMON_TIP_EDIT_SUCCESS|default:"修改成功."}>');
+					else alert('<{$COMMON_TIP_EDIT_FAILED|default:"修改失败."}>');
+				}
+			}); // ajax
+		}// func
+		
+		// 预览模板
+		function previewTpl(){
+			// 确认所有区域都添加了资源
+			var items = areas.getAreas();
+			if (0 == items.length){
+				alert('<{$RES_RIGHTER_EDIT_TPL_TIP2|default:"请添加区块."}>');
+				return;
+			}
+			for (var idx in items){
+				if (items[idx].getResid() == null){
+					alert('<{$RES_RIGHTER_EDIT_TPL_TIP3|default:"存在未添加资源的区块."}>');
+					return;
+				}// if
+			}// for
+			
+			var resolution = $('select[name="resolution"]').val();
+			var wh = resolution.split('*');
+			// 将模板信息发送到服务器端生成发布界面
+			var url = "<{$baseUrl}>/index.php?control=resource&action=generateTpl";
+			$.ajax({
+				type: "post",
+				url: url,
+				data: 'areas='+encodeURIComponent(JSON.stringify(items))+'&resolution='+resolution,
+				success: function(data) {
+					window.open(data, '', 'height='+wh[1]+',width='+wh[0]+',top=100,left=200');
+				}
+			}); // ajax
+		}// func
+		
+		function deleteCanvas(el){
+			$(el).parent().remove();
+			areas.removeArea($(el).parent().attr('id'));
+		}
+	</script>
+	<!----right end----> 
+</div>
+<!--content end-->

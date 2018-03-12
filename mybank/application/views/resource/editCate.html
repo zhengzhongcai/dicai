@@ -1,0 +1,179 @@
+	<!----right---->
+	<div class="right_box">
+		<div style="margin-left:50px;margin-top:20px;">
+			<div class="newsarea">
+				<span><{$RES_RIGHTER_EDIT_CATE_NAME|default:"名称"}>：</span>
+				<input type="text" name="cate_name">
+			</div>
+			<div>
+				<span><{$RES_RIGHTER_EDIT_CATE_SORT|default:"排序"}>：</span>
+				<input type="text" class="sortno" name="sortno" value="1">
+			</div>
+			<div style="margin-bottom:10px;"><{$RES_RIGHTER_EDIT_CATE_COVER|default:"封面"}>：</div>
+			<div class="fieldset flash" id="fsUploadProgress"></div>
+			<div>
+				<span id="spanButtonPlaceHolder"></span>
+				<input id="btnCancel" type="button" value="<{$COMMON_CANCEL_UPLOAD|default:"取消上传"}>" onclick="swfu.cancelQueue();" disabled="disabled"/>
+			</div>
+			<div><{$RES_RIGHTER_PIC_UPLOAD|default:"请上传jpg文件"}></div>
+			<img id="cateLogo" style="display:block;width:300px;height:200px;border:1px solid #000;margin-top:10px;margin-bottom:10px;" src="assets/images/nopic.png"/>
+			<{if '' == $cateid}>
+			<button onclick="storeCate()" class="btn_orange"><{$COMMON_ADD|default:"添加"}></button>
+			<{else}>
+			<button onclick="updateCate(<{$cateid}>)" class="btn_orange"><{$COMMON_EDIT|default:"修改"}></button>
+			<{/if}>
+		</div>
+	</div>
+	<script>
+
+	</script>
+	<!----right end----> 
+</div>
+<!--content end-->
+<link rel="stylesheet" href="assets/SWFUpload/default.css">
+<script type="text/javascript" src="assets/SWFUpload/swfupload.js"></script>
+<script type="text/javascript" src="assets/SWFUpload/plugins/swfupload.queue.js"></script>
+<script type="text/javascript" src="assets/SWFUpload/fileprogress.js"></script>
+<script type="text/javascript" src="assets/SWFUpload/handlers.js"></script>
+<script>
+	// 文件上传对象
+	var swfu;
+	window.onload = function () { // Do something... 	
+		<{if '' != $cateid}>
+		getNewsCate(<{$cateid}>);
+		<{/if}>
+		// 文件上传对象初始化
+		var settings = {
+			upload_url : "<{$baseUrl}>/index.php?control=resource&action=uploadCateLogo",
+			flash_url : "assets/SWFUpload/Flash/swfupload.swf",
+			post_params: {"PHPSESSID" : ""},
+			file_size_limit : "100 MB",
+			file_types : "*.jpg",
+			file_types_description : "All Files",
+			file_upload_limit : 100,
+			file_queue_limit : 1,
+			custom_settings : {
+				progressTarget : "fsUploadProgress",
+				cancelButtonId : "btnCancel"
+			},
+			debug: false,
+
+			// Button settings
+			button_image_url: "assets/SWFUpload/upload.png",
+			button_width: "80px",
+			button_height: "40px",
+			button_placeholder_id: "spanButtonPlaceHolder",
+			button_text: '',
+			button_text_style: ".button{color:red}",
+			button_text_left_padding: 12,
+			button_text_top_padding: 3,
+			
+			// The event handler functions are defined in handlers.js
+			file_queued_handler : fileQueued,
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+			upload_start_handler : uploadStart,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccessRoute,
+			upload_complete_handler : uploadComplete,
+			queue_complete_handler : queueComplete	// Queue plugin event
+		};
+		swfu = new SWFUpload(settings);
+	}//
+	
+	// 展示路线封面
+	function uploadSuccessRoute(file, serverData) {
+		try {
+			var progress = new FileProgress(file, this.customSettings.progressTarget);
+			progress.setComplete();
+			progress.setStatus("<{$COMMON_CANCEL_UPLOAD_FINISHED|default:"完成上传."}>");
+			progress.toggleCancel(false);
+			$('#cateLogo').attr('src', $.trim(serverData));
+		} catch (ex) {
+			this.debug(ex);
+		}
+	}// func
+	
+	// 获取新闻分类
+	function getNewsCate(cateid){
+		var url = "<{$baseUrl}>/index.php?control=resource&action=getNewsCate";
+		$.ajax({
+			type: "post",
+			url: url,
+			data: 'cateid='+cateid,
+			success: function(data) {
+				var cateObj = JSON.parse(data);
+				$('input[name="cate_name"]').val(cateObj.cate_name);
+				$('input[name="sortno"]').val(cateObj.sortno);
+				$('#cateLogo').attr('src', cateObj.img_path);
+			}
+		}); // ajax
+	}// func
+	
+	// 添加分类
+	function storeCate(){
+		var catename = $('input[name="cate_name"]').val();
+		if ("" == catename) {
+			alert('<{$RES_RIGHTER_EDIT_CATE_TIP1|default:"请输入分类名称."}>');
+			return;
+		}
+		
+		var sortno = $('input[name="sortno"]').val();
+		if ("" == sortno) {
+			alert('<{$RES_RIGHTER_EDIT_CATE_TIP2|default:"请输入排序号."}>');
+			return;
+		}
+		
+		var url = "<{$baseUrl}>/index.php?control=resource&action=storeCate";
+		$.ajax({
+			type: "post",
+			url: url,
+			data: 'catename='+catename+'&sortno='+sortno,
+			success: function(data) {
+				if (data > 0){
+					alert('<{$COMMON_TIP_SAVE_SUCCESS|default:"添加成功."}>');
+					clearForm();
+				}else{
+					alert('<{$COMMON_TIP_SAVE_FAILED|default:"添加失败."}>');
+				}
+			}
+		}); // ajax
+	}// func
+	
+	// 清除表单
+	function clearForm(){
+		$('input[name="cate_name"]').val('');
+		$('input[name="sortno"]').val('');
+		$('#cateLogo').attr('src', 'assets/images/nopic.png');
+	}// func
+	
+	// 修改分类
+	function updateCate(cateid){
+		var catename = $('input[name="cate_name"]').val();
+		if ("" == catename) {
+			alert('<{$RES_RIGHTER_EDIT_CATE_TIP1|default:"请输入分类名称."}>');
+			return;
+		}
+		
+		var sortno = $('input[name="sortno"]').val();
+		if ("" == sortno) {
+			alert('<{$RES_RIGHTER_EDIT_CATE_TIP2|default:"请输入排序号."}>');
+			return;
+		}
+		
+		var url = "<{$baseUrl}>/index.php?control=resource&action=updateCate";
+		$.ajax({
+			type: "post",
+			url: url,
+			data: 'catename='+catename+'&cateid='+cateid+'&sortno='+sortno,
+			success: function(data) {
+				if (data > 0){
+					alert('<{$COMMON_TIP_EDIT_SUCCESS|default:"修改成功."}>');
+				}else{
+					alert('<{$COMMON_TIP_EDIT_FAILED|default:"修改失败."}>');
+				}
+			}
+		}); // ajax
+	}// func
+</script>

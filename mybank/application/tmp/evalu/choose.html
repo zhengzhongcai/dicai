@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>成都银行</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/eva.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header">
+		<img src="img/evaluate_title2.png">
+	</div>
+	<div id="content">
+		<div id="choose">
+			<div class="pannel">
+				<div class="name"></div>
+				<div id="satisfy" class="itemlist"></div>
+			</div>
+			<div class="pannel" style="margin-top:40px;">
+				<div class="name" style="background:url(img/evaluate_score_bad.png);background-size:105px 100px;"></div>
+				<div id="unsatisfy" class="itemlist"></div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<img src="img/evaluate_foot_tips.png">
+	</div>
+	<script src="lib/jquery-1.7.2.min.js"></script>
+	<script>
+		window.onload = function(){
+			var data = '{"satisfy":[{"PJ_ID":1,"PJ_NAME":"\u5f88\u6ee1\u610f","PJ_SCORE":100,"PJ_WARNNING":0,"PJ_isCaluMyl":1,"PJ_lrtime":"2013-04-27 00:00:00.000","PJ_lrUser":null,"PJ_lasttime":"2013-05-04 21:44:15.000","PJ_lastUser":"1","PJ_bz":" "},{"PJ_ID":2,"PJ_NAME":"\u6ee1\u610f","PJ_SCORE":100,"PJ_WARNNING":0,"PJ_isCaluMyl":1,"PJ_lrtime":"2013-04-27 00:00:00.000","PJ_lrUser":null,"PJ_lasttime":"2013-05-04 21:44:08.000","PJ_lastUser":"1","PJ_bz":" "}],"unsatisfy":[{"PJ_ID":3,"PJ_NAME":"\u4e00\u822c","PJ_SCORE":60,"PJ_WARNNING":1,"PJ_isCaluMyl":1,"PJ_lrtime":"2013-04-27 00:00:00.000","PJ_lrUser":null,"PJ_lasttime":"2013-05-07 02:50:10.000","PJ_lastUser":"1","PJ_bz":" "},{"PJ_ID":4,"PJ_NAME":"\u4e0d\u6ee1\u610f","PJ_SCORE":2,"PJ_WARNNING":1,"PJ_isCaluMyl":1,"PJ_lrtime":"2013-05-04 21:44:56.000","PJ_lrUser":"1","PJ_lasttime":"2013-05-07 02:50:20.000","PJ_lastUser":"1","PJ_bz":""}]}';
+			var evaObj = JSON.parse(data);
+			$('#satisfy').html('');
+			$('#unsatisfy').html('');
+			
+			for (var idx in evaObj.satisfy){
+				$('#satisfy').append('<div class="evabtn" eva="'+evaObj.satisfy[idx].PJ_ID+'">'+evaObj.satisfy[idx].PJ_NAME+'</div>');
+			}
+			
+			for (var idx in evaObj.unsatisfy){
+				$('#unsatisfy').append('<div class="evabtn" eva="'+evaObj.unsatisfy[idx].PJ_ID+'">'+evaObj.unsatisfy[idx].PJ_NAME+'</div>');
+			}
+			
+			// 通过串口发送评价信息 window.evaluator.choose(eva_val)
+			$('.evabtn').click(function(){
+				var eva_val = $(this).attr('eva');
+				window.evaluator.choose(eva_val);
+				location.href = "./thanks.html";
+			});
+			setInterval(function(){window.evaluator.choose(0);location.href="./publish.html";window.evaluator.touchScreen();},10000);
+		}
+	</script>
+</body>
+</html>

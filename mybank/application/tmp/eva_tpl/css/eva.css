@@ -1,0 +1,165 @@
+html{
+	width:100%;
+	height:100%;
+}
+body{
+	margin:0;
+	padding:0;
+	background:url(../img/evaluate_bg.jpg);
+	background-size:715px 309px;
+	font-family:"微软雅黑";
+	color:#694b4b;
+	/*width:715px;*/
+}
+
+*{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+ul, li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+#header{
+	width:100%;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	background:url(../img/evaluate_head.png);
+	background-size:100% 60px;
+}
+
+
+
+#content{
+	width:100%;
+	height:266px;
+}
+
+#staff{
+	width:630px;
+	height:230px;
+	margin:0px auto 50px auto;
+}
+
+#staff .left{
+	display:inline;
+	float:left;
+	width:220px;
+	height:230px;
+}
+
+#staff .right{
+	display:inline;
+	float:left;
+	width:350px;
+	height:230px;
+	margin-left:60px;
+}
+
+#staff .item{
+	width:100%;
+	height:55px;
+	font-size:30px;
+	color:#FFF;
+	line-height:65px;
+}
+
+#staff .name{
+	color:#aba09d;
+}
+.li_score{
+	display:inline-block;
+	float:right;
+}
+.li_score,
+.li_score span{height:38px;background:url(../img/icon_star5.png) 0 -38px;}
+.li_score{width:200px; margin-top:15px; margin-right:50px;}
+.li_score span{display:block;background-position:0 0;}
+
+#choose{
+	width:670px;
+	height:300px;
+	margin:0 auto;
+	padding:20px 0px 0px 20px;
+}
+
+#choose .pannel{
+	width:658px;
+	height:98px;
+	background:#0F0F0F;
+	border: 1px solid #0F0F0F;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.pannel .name{
+	display:inline;
+	float:left;
+	width:105px;
+	height:100px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	background:url(../img/evaluate_score_good.png);
+	background-size:105px 100px;
+}
+
+.pannel .itemlist{
+	width:500px;
+	height:100px;
+	display:inline;
+	float:left;
+}
+
+.evabtn{
+	display:inline;
+	font-size:22px;
+	float:left;
+	width:110px;
+	height:52px;
+	line-height:45px;
+	margin-top:30px;
+	margin-left:12px;
+	cursor:pointer;
+	color:#FFF1B0;
+	text-align:center;
+	background:url(../img/btn_eva.png);
+	background-size:110px 52px;
+}
+
+.evabtn:hover, .evabtn.active{
+	background:url(../img/btn_eva_on.png);
+	background-size:110px 52px;
+}
+
+
+#footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	height:73px;
+	text-align:center;
+	background:url(../img/evaluate_foot.png);
+	line-height:73px;
+	cursor:pointer;
+}
+
+#thanks{
+	width:600px;
+	height:270px;
+	margin:20px auto;
+	background:#0F0F0F;
+	border: 1px solid #0F0F0F;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}

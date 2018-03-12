@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* CSS Document */
+	
+html,body{ width:100%; height:100%;}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+/*********************  Tree  *************************/
+.treeContainer { width:150px; display:block; float:left; overflow:hidden; height:100%; }
+img{ border:0px;}
+.itm,.s_m {  display:block; font-size:12px; cursor:pointer; }
+.itm {display:block; width:100px; height:16px; line-height: 16px; color:#000;  text-decoration:none; vertical-align: middle; padding:2px 0px 2px 0px;}
+.itm:hover { color:#006; }
+.itm:active { }
+.itm_tu {  }
+.s_m { display:none; padding-left:15px; border-left:#0C0 1px dotted;}
+
+
+
+/*****************************rightMenu***************************/
+.tl i,.tr i,.bl i,.br i { line-height:1px; font-size:1px; display:block; width:10px; height:10px;}
+.rightMenue { font-size:1px; width:100%;}
+.tl { background:url(bga.png) left 0px; width:10px;}
+.tc { background:url(bgb.png) repeat-x left -10px;}
+.tr { background:url(bga.png) -10px 0px; width:10px;}
+
+.cl	{ background:url(bga.png) right 0px;}
+.cc { font-size:12px; background-color:#ffc;}
+.cr { background:url(bga.png) -40px 0px;}
+
+.bl { background:url(bga.png) -20px 0px;}
+.bc{ background:url(bgb.png) repeat-x right 0px;}
+.br { background:url(bga.png) -30px 0px;}
+
+
+/*****************************menu Item*****************************************************/
+
+.list_left,.list_right { font-size:12px; padding:0px; line-height:30px; height:30px; outline:none 0px; }
+
+.list_left{ color:#000; text-decoration:none;  float:left; cursor:pointer; margin:0px; padding-left:5px;background-repeat:no-repeat}
+/*background:url(Skin/default/button.gif) left -1px;*/
+.list_right{  float:left; padding-right:5px; display:block;background-repeat:no-repeat}
+/*background:url(Skin/default/button.gif) right -1px;*/
+
+.list_ico { padding:0px; margin-left:0px; width:0px; height:14px; padding-left:14px; font-size:12px;  white-space:nowrap; background:url(ico.gif) -60px -6px;}
+
+.list_left:hover{background:url(button.gif) left -33px;}
+.list_left:hover span{background:url(button.gif) right -33px; color:#000;} 
+.list_left:active {background:url(button.gif) left -65px;}
+.list_left:active span{background:url(button.gif) right -65px; color:#000;}
+/*----------------filemanage grid.php-----------------*/
+.title_item2{
+background:url(filenavbg.jpg)
+}
+/*-------------Filetypeview.PHP-------------------------*/
+.all {padding-left: 16px; background:url(all.png); background-repeat: no-repeat;}
+.video {padding-left: 16px; background:url(video.gif); background-repeat: no-repeat;}
+.audio {padding-left: 16px; background:url(audio.gif); background-repeat: no-repeat}
+.img {padding-left: 16px; background:url(img.gif); background-repeat: no-repeat}
+.flash {padding-left: 16px; background:url(flash.gif); background-repeat: no-repeat}
+.dhtml {padding-left: 16px; background:url(dhtml.gif); background-repeat: no-repeat}
+.txt {padding-left: 16px; background:url(txt.gif); background-repeat: no-repeat}
+.bz2 {padding-left: 16px; background:url(br2.gif); background-repeat: no-repeat}
+/*----------------------------------------------*/

@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+.tabView { display:block; width:100%;}
+.tabContent {
+	display:block;
+	width: 99.8%;
+	overflow: hidden;
+	border: 1px #AACCEE solid;
+
+}
+.tabHead {
+	display:block;
+	width: 100%;
+	overflow: hidden;
+	margin:0px;
+	border-style:none;
+	font-size:14px;
+	font-family:Verdana, Geneva, sans-serif,'宋体','微软雅黑';
+}
+
+.tabHead_con {
+	overflow: hidden;
+	margin: 0px;
+	height: 24px;
+}
+.tabHead_con li{
+    color:#fff;
+	display:block;
+	float:left;
+	display: list-item;
+	text-align:center;
+	width:85px;
+	line-height:24px;
+	background-image: url(kongz.png);
+	height: 24px;
+	vertical-align: middle;
+	margin-right:2px;
+}
+.tabHead_con li a{ display:block;color:#000;}
+.tabHead_con .tab_selected
+{
+	color:#999;
+	background-image: url(kongz.png);
+	width:85px;
+	height: 30px;
+	background-position: 0px -33px;
+}
+

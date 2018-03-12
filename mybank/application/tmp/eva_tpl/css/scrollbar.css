@@ -1,0 +1,52 @@
+
+/**
+ *
+ * Horizontal Scrollbar
+ *
+ */
+.myScrollbarH {
+	position:absolute;
+	z-index:100;
+	height:5px;
+	bottom:1px;
+	left:2px;
+	right:7px
+}
+
+.myScrollbarH > div {
+	position:absolute;
+	z-index:100;
+	height:100%;
+
+	/* The following is probably what you want to customize */
+	background:rgba(29,29,28,0.6) !important;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+}
+
+
+/**
+ *
+ * Vertical Scrollbar
+ *
+ */
+.myScrollbarV {
+	position:absolute;
+	z-index:100;
+	width:5px;bottom:7px;top:2px;right:1px
+}
+
+.myScrollbarV > div {
+	position:absolute;
+	z-index:100;
+	width:100%;
+
+	/* The following is probably what you want to customize */
+	background:rgba(29,29,28,0.6) !important;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+}

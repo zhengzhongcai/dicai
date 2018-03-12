@@ -1,0 +1,11 @@
+ffplay version N-52837-g399f6ef Copyright (c) 2003-2013 the FFmpeg developers
+  built on May  7 2013 01:09:00 with gcc 4.7.3 (GCC)
+  configuration: --enable-gpl --enable-version3 --disable-w32threads --enable-avisynth --enable-bzlib --enable-fontconfig --enable-frei0r --enable-gnutls --enable-iconv --enable-libass --enable-libbluray --enable-libcaca --enable-libfreetype --enable-libgsm --enable-libilbc --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libopus --enable-librtmp --enable-libschroedinger --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvo-aacenc --enable-libvo-amrwbenc --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libxavs --enable-libxvid --enable-zlib
+  libavutil      52. 29.100 / 52. 29.100
+  libavcodec     55.  7.100 / 55.  7.100
+  libavformat    55.  4.101 / 55.  4.101
+  libavdevice    55.  0.100 / 55.  0.100
+  libavfilter     3. 63.101 /  3. 63.101
+  libswscale      2.  2.100 /  2.  2.100
+  libswresample   0. 17.102 /  0. 17.102
+  libpostproc    52.  3.100 / 52.  3.100

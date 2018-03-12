@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CreateProfile</title>
+<style type="text/css">
+.areaFile div
+{
+	display:block;
+	margin-top:2px;
+}                
+
+
+</style>
+<script type="text/javascript" language="JavaScript" src="../../../JavascriptClass/bx.core.js"></script>
+<script src="../ajax.js" type="text/javascript"></script>
+<script src="../JavaScript/DropDrag.js" type="text/javascript"></script>
+<script language="javascript" src="createLedProfile.js"
+	type="text/javascript"></script>
+<script src="../JavaScript/myWindowClass.js" type="text/javascript"></script>
+<script src="../JavaScript/ColorSelectClass.js" type="text/javascript"></script>
+<script src="../JavaScript/coverDiv.js" type="text/javascript"></script>
+<script src="templateProportion.js" type="text/javascript"></script>
+<script src="../../SpryAssets/SpryTabbedPanels.js"
+	type="text/javascript"></script>
+<link href="../../SpryAssets/SpryTabbedPanels.css" rel="stylesheet"
+	type="text/css" />
+
+<link href="editeTemplate.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+function $(id)
+{
+    return document.getElementById(id);
+}
+var ck=new Cookie();
+ck.DeleteCookie("FY");</script>
+<style>
+/*
+a:hover
+{
+	display:block;
+	padding:0px 19px 0px 0px;
+	border:#0FF solid 0px;
+	background-image:url(../../ceShi_Image/m_bg_r1_c2.png);
+	background-position:right;
+}
+
+a:hover  .div
+{
+	display:block;
+	padding:10px 0px 26px 19px!important;
+	padding:10px 0px 10px 19px;
+	background-image:url(../../ceShi_Image/m_bg_r1_c1.png);
+	border:0px;
+}
+a .div
+{
+	display:block;
+	padding:10px 0px 26px 19px!important;
+	padding:10px 0px 10px 19px;
+	background-image:url(../../ceShi_Image/m_bg_r1_c1_1.png);
+}
+a{
+	text-decoration:none;
+	color:#000;
+	display:block;
+	background-image:url(../../ceShi_Image/m_bg_r1_c2_2.png);
+	padding:0px 19px 0px 0px;
+	border:#0FF solid 0px;
+	background-repeat:no-repeat;
+	background-position:right;
+}
+*/
+.DragContainer
+{
+	
+	PADDING: 5px 0px 0px 0px;
+	FLOAT: left;
+	MARGIN: 0px;
+	WIDTH: 160px;
+}
+.OverDragContainer
+{
+	BORDER: #669999 0px solid;
+	PADDING: 5px 0px 0px 0px;
+	FLOAT: left;
+	MARGIN: 0px;
+	WIDTH: 160px;
+}
+.OverDragContainer { BACKGROUND-COLOR: #eee }
+.DragBox
+{
+	BORDER: #eee 1px solid;
+	PADDING: 2px 2px 2px 2px;
+	FONT-SIZE: 12px;
+	MARGIN-BOTTOM: 2px;
+	WIDTH: 150px;
+	height:13px;
+	display:block;
+	overflow:hidden;
+	CURSOR: pointer;
+	FONT-FAMILY: verdana, tahoma, arial;
+}
+.OverDragBox
+{
+	BORDER: #eee 1px solid;
+	PADDING: 2px 2px 2px 2px;
+	FONT-SIZE: 12px;
+	MARGIN-BOTTOM: 2px;
+	WIDTH: 150px;
+	height:13px;
+	overflow:hidden;
+	CURSOR: pointer;
+	FONT-FAMILY: verdana, tahoma, arial;
+	/*BACKGROUND-COLOR: #eee;*/
+	background-image:url(../../ceShi_Image/f3.gif);
+	background-position:-10px -12px;
+	;
+}
+.DragDragBox
+{
+	BORDER: #eee 1px solid;
+	PADDING: 2px;
+	FONT-SIZE: 12px;
+	WIDTH: 150px;
+	CURSOR: pointer;
+	FONT-FAMILY: verdana, tahoma, arial;
+	BACKGROUND-COLOR: #eee
+}
+.OverDragBox { /*BACKGROUND-COLOR: #ffff99*/
+}
+.DragDragBox { BACKGROUND-COLOR: #ffff99 }
+.DragDragBox
+{
+	_FILTER: alpha(opacity=50);/*只有IE6才能识别，因此可以用于单独对IE6的设置中*/
+	opacity:0.7!important;/*用于Opera、Firefox2、Firefox3等现代浏览器*/
+	/*>FILTER: alpha(opacity=50)!important; /*IE7、IE8可以识别该规则，因此它覆盖掉了上一条规则*/
+	BACKGROUND-COLOR: #ff99cc;
+}
+.History
+{
+	FONT-SIZE: 10px;
+	OVERFLOW: auto;
+	WIDTH: 600px;
+	FONT-FAMILY: verdana, tahoma, arial;
+	HEIGHT: 160px;
+	border:#999 double 2px;
+	display:none;
+}
+.Historya
+{
+	FONT-SIZE: 10px;
+	OVERFLOW: auto;
+	WIDTH: 600px;
+	FONT-FAMILY: verdana, tahoma, arial;
+	HEIGHT: 160px;
+	border:#999 double 2px;
+	display:none;
+}
+#apDiv5
+{
+	width:100%;
+	height:auto;
+	z-index:2;
+	left: 268px;
+	top: 423px;
+	display:block;
+}
+#coverDIV
+{
+	position:absolute;
+	width:100%;
+	z-index:1000;
+	background-color:#ccc;
+	display:none;
+}
+#apDiv6
+{
+	position:absolute;
+	width:auto;
+	height:auto;
+	z-index:4;
+	left: 908px;
+	top: 10px;
+	display:block;
+
+}
+.type input{ border:0px; }
+#loadMessage { display:none;}
+</style>
+
+</head>
+<body>
+<!--div id="coverDIV"></div-->
+<div id="fileListContainer" style="display:none;"></div>
+<table cellpadding="3" width="auto" cellspacing="0" border="0">
+	<tr>
+		<td valign="top" style="width:190px; " width="190">
+		<div id="TabbedPanels1" class="TabbedPanels"
+			style="width:190px;  display:block;">
+		<ul class="TabbedPanelsTabGroup">
+
+			<!--<li class="TabbedPanelsTab" tabindex="0">
+            <label style="font-size:12px;">图片</label>
+          </li>-->
+			<li class="TabbedPanelsTab" tabindex="0"><label
+				style="font-size:12px;">文本</label></li>
+		</ul>
+		<div class="TabbedPanelsContentGroup" id="content"></div>
+		</div>
+		<div class="type" style="display:none;"><input type="radio"
+			name="tempType" value="0" id="tempType_0" checked="checked" /> <label
+			for="tempType_0" onclick="changeTerminal('tempType_0');">X86</label>
+		<input type="radio" name="tempType" value="1" id="tempType_1" /> <label
+			for="tempType_1" onclick="changeTerminal('tempType_1');">em8621</label>
+		<input type="radio" name="tempType" value="2" id="tempType_2" /> <label
+			for="tempType_2" onclick="changeTerminal('tempType_2');">NXP</label>
+		</div>
+		</td>
+		<td valign="top" style="padding:5px; ">
+		<div id="100" areatype="Txt" class="DragContainer"
+			style="height:346px; width:371px; text-align:right; background:url(ledbg.gif);"
+			maintype='N' onclick="areaMenue(event)" ledtype='LED'
+			position="'left':'0','top':'0','height':'0','width':'0'">LED
+		专属区域&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		</td>
+		<td valign="top"><!--区域文件显示栏 开始-->
+        
+        
+		<div id="fileArea"
+			style="width:200px; height:100px; overflow-x:hidden;"></div>
+		<!--区域文件显示栏 结束-->
+		<div class="History" id="h_100"></div>
+		<!--功能按钮 开始-->
+		<div style="height:auto; overflow:hidden">
+        
+        <a href="javascript:void(0)" onclick="fileMoveUp(this)"	id="fl_moveUp"  class="abtn_left"><span class="abtn_right">上&nbsp;移</span></a>
+        
+          <a href="javascript:void(0)" onclick="fileMoveUp(this)"	id="fl_moveUp"  class="abtn_left"><span class="abtn_right">下&nbsp;移</span></a>
+          
+            <a href="javascript:void(0)" onclick="fileMoveDown(this)" id="fl_moveDown" class="abtn_left"><span class="abtn_right">上&nbsp;移</span></a>
+             <a href="javascript:void(0)"onclick="fileDelte(this)" id="fl_del" class="abtn_left"><span class="abtn_right">删&nbsp;除</span></a>
+      </div>
+		<!--功能按钮 结束--> <!--文件属性设置 开始-->
+		<div id="file_info" style="display:block"></div>
+		<!--文件属性设置 结束-->
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td align="center"><!--textarea name="" cols="100" rows="6" id="ttc"></textarea--><!--<input type="button" value="LED设置" onclick="setLedDiv();" areaid="100" id="led_1" />
+      <input type="button" value="删除LED" onclick="closeLEDArea();" style=" display:none;" id="led_2" />-->
+        <table width="347" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="84">播放单元名称:</td>
+            <td width="153"><input type="text" id="profile_name" style="width:60px;" value="" /></td>
+            <td width="110"><a href="javascript:void(0)" name="bg"  class="abtn_left" id="bg" onclick="saveProfile()"><span class="abtn_right">保&nbsp;存</span></a></td>
+          </tr>
+        </table>
+        </td>
+        <td>&nbsp;</td>
+	</tr>
+</table>
+<div id="apDiv5"></div>
+<div id="apDiv6"></div>
+<div id="loadMessage"></div>
+<input type="hidden" id="UserFolder" value="" />
+<script type="text/javascript">
+<!--
+//createProfileNameUI();
+__createCoverDiv("file_list");
+
+function start()
+{
+	var myinfo = $("content");
+	myinfo.innerHTML="";
+	var myajax= new DedeAjax(myinfo,true,create);
+	myajax.SendPost("../../ajaxPHP/createLedFileList.php");
+}
+
+function create(obj)
+{
+	$("content").innerHTML=obj;
+	var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
+	__closeCoverDiv(true,"file_list");
+	//$("content").style.display="none";
+	startUI();
+	//创建LED文件区域
+	createFileArea("100");
+	
+	myajax=null;
+	setTimeout(function()
+	{
+		var myajax= new DedeAjax($("apDiv6"),true,function(str)
+		{
+			bug("缓存用户名",str,"green");
+			//$("profile_name").setAttribute("cacheName",str)
+			
+            _("UserFolder").value=str;
+			
+			myajax=null;
+		});
+		myajax.SendPost("../../ajaxPHP/getUname.php");
+	},200);
+}
+document.body.oncontextmenu=function(){return false;}
+window.onload=function(){start();};
+//--></script>
+</body>
+</html>

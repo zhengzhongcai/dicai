@@ -1,0 +1,33 @@
+<!--content-->
+<div class="content"> 
+  <!----left---->
+  <div class="left_box">
+    <div class="left_menu">
+      <h2>节目播放管理</h2>
+      
+      <div class="left_menu_a_list">
+        <ul>
+		
+			<!--li auth="269" class="statItem"  ><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=fast&fcode=monitor" >快速创建节目</a></li>
+      <li auth="277" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=temp&fcode=monitor" >创建模板</a></li>
+      <li auth="281" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=profile&fcode=monitor" >创建节目</a></li>
+      <li auth="284" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=play_list&fcode=monitor" >创建播放列表</a></li-->
+      <li auth="269" class="statItem"  ><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=fast&fcode=monitor" >快速创建节目</a></li>
+      <li auth="277" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=temp&fcode=monitor">创建模板</a></li>
+      <li auth="281" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=profile&fcode=monitor">创建节目</a></li>
+      <li auth="284" class="statItem"><a href="<?php echo $session['baseurl']; ?>/index.php?control=play&action=play_list&fcode=monitor" >创建播放列表</a></li>
+          <!--  <li auth="data-p" class="statItem"><a href="<{$baseUrl}>/index.php?control=lookimage&action=index" <{if $action eq "commonParam"}>class="on"<{/if}>><{$DATA_LEFTER_MANAGE_PARAM1|default:"查看图片"}></a></li>-->
+        </ul>
+      </div>
+    </div>
+    </div>
+
+  <!----left end----> 
+ 
+  <!----left end---->
+  <script type="text/javascript" src="/CI/system/application/views/javaScript/fastProgramManage.js"></script> 
+  <script>
+    <?php foreach($www as $val): ?>
+    $('li[auth="<?php echo $val['menurole_id'];?>"]').css('display', 'block');
+    <?php endforeach;?>
+  </script>

@@ -1,0 +1,172 @@
+    <div style="overflow:hidden;"><!----mob_search ---->
+		<div class="mob_search">
+			<input type="date" id="starttime" name="starttime" onchange="getStarttime()">
+			&nbsp;&nbsp;至&nbsp;&nbsp;
+			<input type="date" id="endtime" name="endtime" onchange="getEndtime()">
+
+			<input name="" type="button" value="查询" class="btn_orange"/>
+		</div>
+      <!----mob_search end----> 
+      <!----table title---->
+      <div class="table_title">
+        <h3><{$title}></h3>
+        <p>(<span id="textStarttime"></span> 至 <span id="textEndtime"></span>)</p>
+      </div>
+      <!----table title end----> 
+       <!----tool 工具条---->
+     <div class="mob_tool">
+     <div class="table_view">
+		<ul>
+			<li class="li1"><a onclick="showTableData(this)" title="查看表格" class="on"><i class="view_table"></i></a></li>
+			<li><a onclick="showChart(this, 'line')" title="查看折线图"><i class="view_line_chart"></i></a></li>
+			<li><a onclick="showChart(this, 'bar')" title="查看柱状图"><i class="view_histogram"></i></a></li>
+			<li><a onclick="showChart(this, 'pie')" title="查看饼图"><i class="view_pie_chart"></i></a></li>
+		 </ul>
+	 </div>
+     <div class="tr">
+      <a href="#" class="tool_exl">导出Excel</a>
+      <a href="#" class="tool_print">打印</a></div>
+     </div>
+     
+         <!----tool 工具条 end---->
+          <!----table 表格---->
+    <div class="mod_table">
+		<div id="tab1">
+			<table id="tb_eva">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>机构代码</th>
+						<th>银行名称</th>
+						<th>非常满意</th>
+						<th>满意</th>
+						<th>基本满意</th>
+						<th>不满意</th>
+						<th>总业务量</th>
+						<th>不满意比例</th>
+					</tr>
+				</thead>
+				<tbody>
+					<{foreach item=row from=$evaArr}>
+					<tr>
+						<td><{$row.id}></td>
+						<td><{$row.org_no}></td>
+						<td><{$row.bank}></td>
+						<td><{$row.very}></td>
+						<td><{$row.normal}></td>
+						<td><{$row.base}></td>
+						<td><{$row.unsatisfy}></td>
+						<td><{$row.totle}></td>
+						<td><{$row.per}></td>
+					</tr>
+					<{/foreach}>
+				</tbody>
+			</table>
+		</div>
+		<div id="tab2" style="padding:20px;display:none">
+			<table class="data" data-chart="bar">
+				<thead>
+					<tr>
+					<{for $i=0 to $chartColNum}>
+						<{if $i eq 0}>
+						<td><{$evaChartArr.head[$i]}></td>
+						<{else}>
+						<th scope="col"><{$evaChartArr.head[$i]}></th>
+						<{/if}>
+					<{/for}>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<{for $i=0 to $chartColNum}>
+						<{if $i eq 0}>
+						<th scope="row"><{$evaChartArr.very[$i]}></th>
+						<{else}>
+						<td><{$evaChartArr.very[$i]}></td>
+						<{/if}>
+					<{/for}>
+					</tr>
+					<tr>
+					<{for $i=0 to $chartColNum}>
+						<{if $i eq 0}>
+						<th scope="row"><{$evaChartArr.normal[$i]}></th>
+						<{else}>
+						<td><{$evaChartArr.normal[$i]}></td>
+						<{/if}>
+					<{/for}>
+					</tr>
+					<tr>
+					<{for $i=0 to $chartColNum}>
+						<{if $i eq 0}>
+						<th scope="row"><{$evaChartArr.base[$i]}></th>
+						<{else}>
+						<td><{$evaChartArr.base[$i]}></td>
+						<{/if}>
+					<{/for}>
+					</tr>
+					<tr>
+					<{for $i=0 to $chartColNum}>
+						<{if $i eq 0}>
+						<th scope="row"><{$evaChartArr.unsatisfy[$i]}></th>
+						<{else}>
+						<td><{$evaChartArr.unsatisfy[$i]}></td>
+						<{/if}>
+					<{/for}>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+    <!----table 表格 end----> 
+	
+         
+    </div>
+  </div>
+  </div>
+  <!----right end----> 
+  
+</div>
+<!--content end-->
+<script>
+	$(document).ready(function(){
+		// 设置表排序特效
+		$('#tb_eva').dataTable({
+			"bPaginate": false,
+			"bFilter": false
+		});
+	});
+	
+	function getStarttime(){
+		var starttime = $('#starttime').val();
+		var tmpArr  = starttime.split('-');
+		$('#textStarttime').html(tmpArr[0]+"-"+tmpArr[1]+"-"+tmpArr[2]);
+	}// func
+	
+	function getEndtime(){
+		var starttime = $('#endtime').val();
+		var tmpArr  = starttime.split('-');
+		$('#textEndtime').html(tmpArr[0]+"-"+tmpArr[1]+"-"+tmpArr[2]);
+	}// func
+	
+	// 显示报表
+	function showTableData(elem) {
+		$('#tab1').css('display', 'block');
+		$('#tab2').css('display', 'none');
+		$(elem).parent().parent().find('a').each(function(){
+			$(this).removeClass('on');
+		});
+		$(elem).addClass('on');
+	}//
+	
+	// 显示图表
+	function showChart(elem, type){
+		$('div[class^="visualize"]').remove();
+		$('#tab1').css('display', 'none');
+		$('#tab2').css('display', 'block');
+		$(elem).parent().parent().find('a').each(function(){
+			$(this).removeClass('on');
+		});
+		$(elem).addClass('on');
+		chartActive(type);
+	}// func
+</script>

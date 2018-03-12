@@ -1,0 +1,302 @@
+html{
+	width:100%;
+	height:100%;
+}
+body{
+	margin:0;
+	padding:0;
+	background:url(../img/bg.jpg);
+	background-size:100% 100%;
+	font-family:"微软雅黑";
+	color:#694b4b;
+	/*width:715px;*/
+}
+
+*{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+a, a:visited{
+	text-decoration:none;
+	color:#694b4b;
+}
+
+ul, li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+#header{
+	width:100%;
+	height:70px;
+	background:url(../img_config/head.png);
+	background-size:100% 70px;
+}
+
+#menu{
+	width:640px;
+	margin:0 auto;
+	padding:5px 20px;
+}
+
+#menu li{
+	float:left;
+	width:155px;
+	height:145px;
+}
+
+#menu .menu_item{
+	width:155px;
+	height:105px;
+	margin:5px 0px 0px 0px;
+}
+
+#menu .item_icon{
+	width:85px;
+	height:85px;
+	margin:0 auto;
+}
+
+#menu .item_title{
+	width:155px;
+	height:15px;
+	margin-top:10px;
+	line-height:15px;
+	text-align:center;
+	font-size:15px;
+}
+
+#content{
+	width:100%;
+	height:279px;
+}
+
+#footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	height:50px;
+	background:url(../img/foot_bg.png);
+	line-height:50px;
+}
+
+/*分行简介*/
+#intros, #detail, #infos{
+	width:668px;
+	height:292px;
+	margin:0 auto;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	border: 1px solid #d9d9d9;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius: 3px;
+	background: #fff url(../img/dj-after-index.gif) right 0 repeat-y;
+}
+
+.intro_head_bg{
+	width:670px;
+	height:2px;
+	background:url(../img/detail_top.png);
+	background-size:670px 2px;
+}
+
+#intros .title, #detail .title{
+	height:49px;
+	width:630px;
+	margin:0 auto;
+	border-bottom:1px solid #d9d9d9;
+	line-height:50px;
+	font-size:25px;
+	text-align:center;
+}
+
+#intros .list{
+	width:630px;
+	height:210px;
+	margin:0 auto;
+}
+
+#intros .list ul{
+	width:600px;
+	margin:0 auto;
+	margin-top:15px;
+}
+
+#intros .list li{
+	width:600px;
+	height:40px;
+}
+
+#intros .list_item{
+	height:30px;
+	box-shadow: 0 1px 5px rgba(180,180,180,0.2);
+	border: 1px solid #d9d9d9;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background:url(../img/li_bg.png);
+	
+	font-size:15px;
+	color:#7f4a29;
+	line-height:30px;
+}
+
+#intros .list_item:hover{
+	background:url(../img/li_bg_on.png);
+}
+
+.list_item > img, .list_item > span{
+	margin-left:25px;
+}
+
+#detail .desc{
+	display:block;
+	width:630px;
+	height:210px;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+#infos .head_area{
+	height:79px;
+	width:630px;
+	margin:0 auto;
+	border-bottom:1px solid #d9d9d9;
+	line-height:60px;
+	font-size:30px;
+	text-align:center;
+}
+
+#infos .title{
+	height:49px;
+}
+
+#infos .time_author{
+	width:340px;
+	height:30px;
+	margin:0 auto;
+	color:#CCCCCC;
+}
+
+#infos .time_author .time, #infos .time_author .author{
+	display:inline;
+	float:left;
+	font-size:15px;
+	line-height:30px;
+	margin:0 10px;
+}
+
+#infos .desc{
+	width:630px;
+	height:210px;
+	margin:0 auto;
+	overflow:hidden;
+	overflow-y:auto;
+}
+
+/*按钮*/
+.evabtn, .backbtn, .homebtn, .pagepubtn, .pagenextbtn{
+	height:44px;
+	cursor:pointer;
+}
+/*评价系统按钮*/
+.evabtn{
+	width:148px;
+	height:44px;
+	margin-top:3px;
+	margin-right:20px;
+	float:right;
+	background:url(../img/btn_evaluate.png);
+	background-size:148px 44px;
+}
+
+.evabtn:hover{
+	background:url(../img/btn_evaluate_on.png);
+}
+/*返回按钮*/
+.backbtn{
+	width:101px;
+	height:44px;
+	margin-top:3px;
+	margin-right:20px;
+	float:right;
+	background:url(../img/btn_return.png);
+	background-size:101px 44px;
+}
+.backbtn:hover{
+	background:url(../img/btn_return_on.png);
+}
+/*首页按钮*/
+.homebtn{
+	width:101px;
+	height:44px;
+	margin-top:3px;
+	margin-right:20px;
+	float:right;
+	background:url(../img/btn_home.png);
+	background-size:101px 44px;
+}
+
+.homebtn:hover{
+	background:url(../img/btn_home_on.png);
+}
+
+.pageupbtn{
+	width:44px;
+	height:44px;
+	float:left;
+	margin-top:3px;
+	background:url(../img/btn_pageup.png);
+}
+/*
+.pageupbtn:hover{
+	background:url(../img/btn_pageup_on.png);
+}
+*/
+
+.pageupbtn_off{
+	width:44px;
+	height:44px;
+	float:left;
+	margin-top:3px;
+	background:url(../img/btn_pageup_gray.png);
+}
+
+.pagenextbtn{
+	width:44px;
+	height:44px;
+	margin-top:3px;
+	float:left;
+	background:url(../img/btn_pagenext.png);
+}
+/*
+.pagenextbtn:hover{
+	background:url(../img/btn_pagenext_on.png);
+}
+*/
+.pagenextbtn_off{
+	width:44px;
+	height:44px;
+	margin-top:3px;
+	float:left;
+	background:url(../img/btn_pagenext_gray.png);
+}
+
+.pagenumarea{
+	font-size:20px;
+	float:left;
+}
+
+.pagenum{
+	color:#777777;
+	margin:2px;
+	cursor:pointer;
+}
+
+.pagenum.active, .pagenum:hover{
+	color:#bf3119;
+}

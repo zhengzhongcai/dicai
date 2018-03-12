@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+/* CSS Document */
+.ledbg {
+background:url(ledbg.gif)
+}
+*{ outline:none}	
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 12px;
+}
+
+input {
+	cursor: pointer;
+
+}
+
+label {
+	cursor: pointer;
+}
+
+
+#apDiv1 {
+	position: relative;
+	width: 580px;
+	height: 435px;
+	border: 0px;
+	left: auto;
+	top: 0px;
+	/*background-color:#00F;*/
+	background-image: url(BG.png);
+	z-index: 2;
+}
+
+#mg {
+	position: absolute;
+	font-size: 12px;
+	width: 271px;
+	height: 397px;
+	z-index: 2;
+	left: 772px;
+	top: 7px;
+	background-color: #eee;
+	display: none;
+	text-align: left;
+}
+
+#apDiv2 {
+	position: absolute;
+	width: 789px;
+	height: 22px;
+	z-index: 3;
+	left: 11px;
+	top: 412px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.leftIput {
+	width: 40px;
+}
+
+.selectImgOut {
+	background: transparent;
+}
+
+.selectImgOver {
+	background-color: #FFF;
+}
+
+button {
+	cursor: pointer;
+}
+
+/*===================定义按钮样式=================*/
+.abtn_left,.abtn_right { font-size:12px; padding:0px; line-height:30px; height:30px; outline:none 0px;   }
+
+.abtn_left{background:url(button.gif) 0px 0px; color:#000; text-decoration:none;  float:left; cursor:pointer; margin:0px; padding-left:4px; }
+.abtn_right{background:url(button.gif) right -31px;  float:left; padding-right:4px;  }
+
+.abtn_left:hover{background:url(button.gif) -133px 0px;}
+.abtn_left:hover span{background:url(button.gif) right -65px; color:#000;}
+.abtn_left:active {background:url(button.gif) -308px -1px; }
+.abtn_left:active  span{background:url(button.gif) right -97px; color:#000; }
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script language="javascript">
+/********************************************
+*
+*
+*	获取URL上传来的的参数
+*	例如: 
+*			var hrf=http://www.xxxxx.com?pth=a&ld=c
+*			var arguments_1=GetArgsFromHref(hrf,"pth");
+*			则:
+*				arguments_1的值为:	a
+*
+*
+********************************************/
+function GetArgsFromHref(sHref, sArgName)
+{
+    var args  = sHref.split("?");
+    var retval = "";
+    if(args[0] == sHref) /*参数为空*/
+    {
+         return retval; /*无需做任何处理*/
+    } 
+    var str = args[1];
+    args = str.split("&");
+    for(var i = 0; i < args.length; i ++)
+    {
+        str = args[i];
+        var arg = str.split("=");
+        if(arg.length <= 1) continue;
+        if(arg[0] == sArgName) retval = arg[1];
+    }
+    return retval;
+}
+function $(obj){return document.getElementById(obj);}
+</script>
+</head>
+
+<body>
+<table align="center" id="load" style="display:none;" cellpadding="0"
+	cellspacing="0" border="0">
+	<tr>
+		<td><img src="ajax-loader.gif" width="49" height="45" /></td>
+		<td>文件加载中请稍后......</td>
+	</tr>
+</table>
+<script language="javascript">
+var flash=GetArgsFromHref(window.location.href,"flash");
+if(flash=="default")
+{
+	document.getElementById("load").style.display="block";
+}
+else
+{
+var w=GetArgsFromHref(window.location.href,"w");
+var h=GetArgsFromHref(window.location.href,"h");
+document.write("<object classid=\"clsid:D27CDB6E-AE6D-11CF-96B8-444553540000\" id=\"obj2\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" border=\"0\" width=\""+w+"\" height=\""+h+"\"><param name=\"movie\"  id=\"swfname\" value=\""+flash+"\"><param name=\"quality\" value=\"High\"><embed pluginspage=\"http://www.macromedia.com/go/getflashplayer\" src=\""+flash+"\" type=\"application/x-shockwave-flash\" width=\""+w+"\" height=\""+h+"\"></object>");
+}
+</script>
+
+</body>
+</html>

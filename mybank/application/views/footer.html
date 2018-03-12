@@ -1,0 +1,18 @@
+<div class="foot">
+  <p><{$COMMON_COPY_RIGHT}></p>
+</div>
+<script src="assets/js/common.js"></script>
+<script>
+// 格式化时间
+function formateTiemStr(second){
+	var minute = 0;
+	if (second > 60) 
+	{
+		minute = parseInt(second/60);
+		second = second%60;
+	}// if
+	return minute+'<{$COMMON_MIN|default:"分"}>'+second+'<{$COMMON_SEC|default:"秒"}>';
+}// func
+</script>
+</body>
+</html>

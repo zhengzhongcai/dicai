@@ -1,0 +1,38 @@
+
+
+/* remember to define focus styles! */
+:focus { outline: 0; }
+
+
+/* ----------------------------------------------- 
+	BASIC ELEMENTS
+   ----------------------------------------------- */
+   
+   
+/* -- Text Styles ------------------------------- */
+html, 
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font: 12px/1.4em Helvetica, Arial, sans-serif;
+}
+
+
+/************************button Css*************************/
+.bx-button { 
+	display:inline-block; 
+	background:transparent;
+	background:#ccc url("bg_blue_1x100.png") 50% 50% repeat-x; 
+	padding:5px 8px; 
+	border:1px solid #666; 
+	color:#fff; 	
+	border-color: #D9E4FF; 
+	cursor:pointer;
+	Border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px; 
+	
+	}
+.bx-button .bx_bt_title { }
+.bx-button .bx_r_bg {}

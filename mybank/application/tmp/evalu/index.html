@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>成都银行</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header"></div>
+	<div id="content">
+		<div id="menu">
+			<ul></ul>
+		</div>
+	</div>
+	<div id="footer">
+		
+		<a href="./evalu.html"><div class="evabtn"></div></a>
+		
+	</div>
+	<script src="lib/jquery-1.7.2.min.js"></script>
+	<script>
+		window.onload = function(){
+			var data = '[{"id":12,"cate_name":"\u5206\u884c\u7b80\u4ecb","img_path":"51ee3908bd223.jpg","create_time":"2013-07-23 16:04:24.000","usercode":"1","sortno":1},{"id":13,"cate_name":"\u4e1a\u52a1\u63a8\u8350","img_path":"51ee391cd8a52.jpg","create_time":"2013-07-23 16:04:44.000","usercode":"1","sortno":2},{"id":14,"cate_name":"\u6e29\u99a8\u63d0\u793a","img_path":"51ee392db7514.jpg","create_time":"2013-07-23 16:05:01.000","usercode":"1","sortno":3},{"id":15,"cate_name":"\u672c\u5468\u8425\u9500\u91cd\u70b9","img_path":"52031111b8d73.jpg","create_time":"2013-07-23 16:05:25.000","usercode":"1","sortno":4},{"id":16,"cate_name":"\u6211\u7684\u7b2c\u4e94\u5206\u7c7b","img_path":"51f60c428b9c0.jpg","create_time":"2013-07-29 14:31:30.000","usercode":"1","sortno":5}]';
+			var cateObjs = JSON.parse(data);
+			for (var idx in cateObjs){
+				$('#menu > ul').append(generateCate(cateObjs[idx]));
+			}// for
+		}
+		// 生成分类项
+		function generateCate(cate){
+			var liStr = '<li>'+
+							'<a href="./pages/cate_'+cate.id+'.html">'+
+								'<div class="menu_item">'+
+									'<div class="item_icon"><img src="images/pages/'+cate.img_path+'" width="100%" height="100%"></div>'+
+									'<div class="item_title">'+cate.cate_name+'</div>'+
+								'</div>'+
+							'</a>'+
+						'</li>';
+			return liStr;
+		}
+	</script>
+</body>
+</html>

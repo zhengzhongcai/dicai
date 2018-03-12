@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+<link href="assets/css/login.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/head_foot.css" rel="stylesheet" type="text/css" />
+<script src="assets/js/jquery.js"></script>
+</head>
+
+<body class="login_bg">
+<!--top-->
+<div class="top_bar">
+  <div class="top_bar_left"> </div>
+  <div class="top_bar_middle"></div>
+</div><!--top end-->
+<!--login_content-->
+<div class="login_content">
+	<h1 class="login_h1"><{$LOGIN_SYS_NAME|default:"排号机联网监控系统"}></h1>
+	<div class="login_box">
+		<div class="login_title"><h2><{$LOGIN_LOGINBOX_TITLE|default:"登录排号机联网监控系统"}></h2></div>
+		<div class="login_form">
+			<input name="fade_username" type="input" class="login_id" />
+			<input name="fade_password" type="password" class="login_pw" />
+			<p><a href="#"><{$LOGIN_FORGET_PASS|default:"忘记密码？"}></a></p>
+			<p>
+				<input type="button" class="btn_login" value="登录" onclick="login()" />
+			</p>
+		</div>
+	</div>
+</div><!--login_content end-->
+<form id="loginForm" action="<{$baseUrl}>/index.php?control=welcome&action=login" method="post">
+	<input type="hidden" name="username">
+	<input type="hidden" name="password">
+</form>
+
+<script>
+   
+	
+	 $("body").keydown(function() {
+	 	
+		 if (event.keyCode == "13") {//keyCode=13是回车键
+			 login();
+		 }
+			 });
+	function login(){
+		var username = $('input[name="fade_username"]').val();
+		var password = $('input[name="fade_password"]').val();
+		if ("" == username){
+			alert('<{$LOGIN_INPUT_ACOUNT_TIP|default:"请输入登录账号."}>');
+			return;
+		}
+		if ("" == password)
+		{
+			alert('<{$LOGIN_INPUT_PASS_TIP|default:"请输入密码."}>');
+			return;
+		}
+		$('input[name="username"]').val(username);
+		$('input[name="password"]').val(password);
+	   	 	var urlBs="http://192.168.100.119:801/CI/index.php/c_login/login";
+    
+	$.ajax({
+			type: "post",
+			url: urlBs,
+			data: {user:username,pwd:password},
+			success: function(data) {
+
+			}
+		}); 
+
+    
+		var url = "<{$baseUrl}>/index.php?control=welcome&action=login";
+		$.ajax({
+			type: "post",
+			url: url,
+			data: "username=" + username + '&password=' + password,
+			success: function(data) {
+				//alert(data);return;
+				if (data == '' || typeof data == 'undefined')
+				{
+					var url = "<{$baseUrl}>/index.php?control=dashboard";
+					location.href = url;
+				
+				}// 
+				else
+					alert(data);
+			}
+		}); // ajax
+		//$('#loginForm').submit();
+	}// func
+</script>
+
+<div class="foot">
+  <p><{$COMMON_COPY_RIGHT1}></p>
+</div>
+</body>
+<?php echo 111; ?>
+</html>

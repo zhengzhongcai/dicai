@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>成都银行</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="../css/style.css" rel="stylesheet">
+	<link href="../css/scrollbar.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header"></div>
+	<div id="content">
+		<div style="height:15px"></div>
+		<div id="detail">
+			<div class="intro_head_bg"></div>
+			<div class="title"></div>
+			<div id="desc" class="desc" style="position:relative;">
+				<div style="position:absolute;width:100%;">
+				
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div id="footer">
+		<!--
+		<a href="./evalu.html"><div class="evabtn"></div></a>
+		-->
+		<div class="homebtn" onclick="location.href='./../index.html'"></div>
+		<div class="backbtn" onclick="history.go(-1)"></div>
+	</div>
+	<script src="../lib/jquery-1.7.2.min.js"></script>
+	<script src="../lib/iscroll.js"></script>
+	<script>
+		window.onload = function(){
+			var data = decodeURIComponent(('%7B%22id%22%3A11%2C%22item_name%22%3A%22%5Cu6211%5Cu7684%5Cu7b80%5Cu4ecb5%22%2C%22create_time%22%3A%222013-07-29+14%3A37%3A05.000%22%2C%22usercode%22%3A%221%22%2C%22content%22%3A%22%3Cp%3E%5Cu5185%5Cu5bb95%3C%5C%2Fp%3E%22%2C%22cateid%22%3A12%2C%22sortno%22%3A5%7D' + '').replace(/\+/g, '%20'));
+			var itemObj = JSON.parse(data);
+			$('.title').html(itemObj.item_name);
+			$('.desc > div').html(itemObj.content);
+			var mainScroll = new iScroll('desc', { scrollbarClass: 'myScrollbar' });
+		}
+	</script>
+</body>
+</html>
